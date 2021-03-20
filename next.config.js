@@ -13,4 +13,7 @@ module.exports = withPWA({
     register: true,
   },
   target: "serverless",
+  images: {
+    loader: 'imgix'
+  },
 });
