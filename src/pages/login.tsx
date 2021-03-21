@@ -31,7 +31,7 @@ const Home = () => {
   return (
       <Grid 
         as="main"
-        templateColumns="1fr 400px 1fr"
+        templateColumns="1fr 100% 1fr"
         templateRows="1fr 100% 1fr"
         templateAreas="
           '. . .'
