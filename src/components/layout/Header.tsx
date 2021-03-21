@@ -11,7 +11,12 @@ import Login from "../Login";
 
 const Header = () => {
   return (
-    <Flex as="header" width="full" align="center" justifyContent={"space-between"}>
+    <Flex 
+      as="header" 
+      width="full" 
+      align="center" 
+      justifyContent={"space-between"}
+    >
       <Box marginRight="auto">
         <AccessibleLink href="/">
           <Button background={"transparent"} leftIcon={<FaSearch />}>
