@@ -3,12 +3,12 @@ import { Flex, Link, Text } from "@chakra-ui/layout";
 const Footer = () => {
   return (
     <Flex as="footer" width="full" align="center">
-      <Text>
+      {/* <Text>
         2021 -{" "}
         <Link href="https://sznm.dev" isExternal>
           sznm.dev
         </Link>
-      </Text>
+      </Text> */}
     </Flex>
   );
 };
