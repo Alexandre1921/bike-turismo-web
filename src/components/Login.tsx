@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/button";
-// import { Image } from "@chakra-ui/image";
+
 import { BiLogIn } from 'react-icons/bi'; 
 import { FaWpforms } from 'react-icons/fa'; 
 
