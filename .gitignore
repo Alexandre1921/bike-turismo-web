@@ -43,3 +43,4 @@ yarn.lock
 # firebase
 .firebase
 firebase-debug.log
+service-account-file.json

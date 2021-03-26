@@ -2,31 +2,15 @@ import React, { useState } from "react";
 import { Flex, Progress, Center, Heading, Divider, Grid, Box,FormControl, FormLabel, FormHelperText,InputGroup,InputLeftElement, Input, FormErrorMessage, InputProps, Button } from "@chakra-ui/react"
 import { EmailIcon, LockIcon } from "@chakra-ui/icons"
 import { Formik, Field, Form } from 'formik';
+import { validateEmail, validatePassword } from "../utils/validation";
+import { auth } from "../utils/firebase";
+
+auth.onAuthStateChanged((user)=>{
+  console.log(user);
+})
 
 const Home = () => {
   const [ isLoading, setIsLoading ] = useState(false);
-
-  function validateEmail(value: string) {
-    const exp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let error;
-    if (!value) {
-      error = "O email é necessário"
-    } else if (!exp.test(value)) {
-      error = "Email inválido"
-    }
-    return error;
-  }
-
-  function validatePassword(value: string) {
-    const exp = /(?=.*[0-9a-zA-Z]).{6,}/;
-    let error
-    if (!value) {
-      error = "A senha é necessária"
-    } else if (!exp.test(value)) {
-      error = "Senha inválida"
-    }
-    return error
-  }
 
   return (
       <Grid 
@@ -57,10 +41,10 @@ const Home = () => {
 
               <Formik
                 initialValues={{ email: "", password: "" }}
-                onSubmit={(values, actions) => {
+                onSubmit={({ email, password }, actions) => {
                   setIsLoading(true);
-                  console.log(values);
                   actions.setSubmitting(false);
+                  auth.signInWithEmailAndPassword(email, password).then(res=>res);
                 }}
               >
                 {({isSubmitting}) => (
