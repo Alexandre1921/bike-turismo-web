@@ -18,7 +18,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Box as="main" marginY={22}>
           {children}
         </Box>
-        <Footer />
+        {/* <Footer /> */}
       </Box>
     </Box>
   );

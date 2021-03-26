@@ -13,7 +13,7 @@ const SomeText = () => {
       </Heading>
 
       <Box
-        backgroundColor={colorMode === "light" ? "gray.200" : "gray.500"}
+        backgroundColor={colorMode === "light" ? "gray.500" : "gray.200" }
         padding={4}
         borderRadius={4}
       >

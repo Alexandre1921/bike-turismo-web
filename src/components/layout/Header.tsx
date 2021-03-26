@@ -7,7 +7,7 @@ import { GiRank3 } from 'react-icons/gi';
 import { RiRoadMapLine } from 'react-icons/ri';
 
 import AccessibleLink from "../AccessibleLink";
-import Login from "../Login";
+import Login from "../LoginButtons";
 
 const Header = () => {
   return (
