@@ -4,7 +4,6 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/functions';
 
-console.log(process.env);
 if (firebase.apps.length === 0) {
     firebase.initializeApp({
         apiKey: process.env.FIREBASE_APIKEY,

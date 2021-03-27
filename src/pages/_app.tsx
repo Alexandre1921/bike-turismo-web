@@ -1,5 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import AppProvider from "hooks/auth";
+import AppProvider from "hooks";
 import { AppProps } from "next/app";
 import Head from "next/head";
 
