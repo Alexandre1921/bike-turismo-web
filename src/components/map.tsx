@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Polyline, useMapEvent, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Polyline, useMapEvent, Marker, Popup, LayersControl, LayerGroup, Circle, FeatureGroup, Rectangle } from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import genKey from "utils/genKey";
 import { useState } from "react";
@@ -51,6 +51,14 @@ const Map = () => {
       
     return (
         <MapContainer center={position} zoom={14} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
+            <LayersControl position="topright" collapsed={false}>
+                <LayersControl.BaseLayer checked name="OpenStreetMap.Mapnik">
+                    <TileLayer
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                </LayersControl.BaseLayer>
+            </LayersControl>
             <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
