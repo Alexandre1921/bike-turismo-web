@@ -14,8 +14,7 @@ const Login = () => {
     <Box textAlign="center" marginTop={8}>
       <Flex marginY={4} justifyContent="center" gridGap={2}>
         <Link
-          isExternal
-          href="https://accounts.google.com/Login"
+          href="/login"
         >
           <Button isFullWidth={isSmallerThan600} leftIcon={<BiLogIn />}>
             Login

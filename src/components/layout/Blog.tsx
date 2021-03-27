@@ -1,44 +1,38 @@
 import React from 'react';
 
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Box, Flex} from '@chakra-ui/react';
 
 import PostCard from '../PostCard';
 
  
 const Blog: React.FC = () => {
   return (
-    <Grid
-      h="100px"
-      w="65rem"
-      justifyContent="center"
-      templateRows="repeat(2, 1fr)"
-      templateColumns="repeat(4, 1fr)"
-      gap={3}
-    >
-      <GridItem rowSpan={2} colSpan={1} >
+    <Flex>
+      <Box>
         <PostCard
-          title="Onde comprar seu caça F-16?"
-          description="Hoje no Globo Reporter"
-          source={"https://homepages.cae.wisc.edu/~ece533/images/airplane.png"}
+          title="Por que andar de bike faz bem?"
+          description="A bicicleta é um excelente meio de transporte que pode ajudar 
+          até mesmo a evitar a poluição do meio..."
+          source={"https://i.ibb.co/4FczZJD/murillo-de-paula-o2-FCfh-NSj-Po-unsplash.jpg"}
           />
-      </GridItem> 
-      
-      <GridItem rowSpan={2} colSpan={1} >
+      </Box>
+      <Box>
         <PostCard
-          title="Paisagens bonitas para conhecer de Bike"
-          description="Hoje no Globo Reporter"
-          source={"https://homepages.cae.wisc.edu/~ece533/images/fruits.png"}
+          title="Melhores marcas de bike para trilha"
+          description="Se você quer iniciar essa nova atividade, recomendamos que escolha 
+          uma bicicleta destinada a esse..."
+          source={"https://i.ibb.co/KyxNh9C/josh-nuttall-XVTWFHc-NIko-unsplash.jpg"}
         />
-      </GridItem>
-
-      <GridItem rowSpan={2} colSpan={1} >
+      </Box>
+      <Box>
         <PostCard
           title="Melhores trilhas de 2020"
-          description="venha conhecer"
-          source={"https://homepages.cae.wisc.edu/~ece533/images/barbara.png"}
+          description="Uma das características mais bacanas de praticar mountain bike é 
+          que não existe rotina nem..."
+          source={"https://i.ibb.co/gd6QJTx/guillaume-techer-8-EHz-Tdx85-VQ-unsplash.jpg"}
           />
-      </GridItem>
-    </Grid>
+      </Box>
+    </Flex>
   );
 };
 
