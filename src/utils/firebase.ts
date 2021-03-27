@@ -4,10 +4,8 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/functions';
 
-import serviceAccount from '../service-account-file.json';
-
 if (firebase.apps.length === 0) {
-    firebase.initializeApp(serviceAccount);
+    firebase.initializeApp(process.env.FIREBASE_SERVICE_ACCOUNT_BIKE_TURISMO!);
 }
 
 export const db = firebase.firestore();
