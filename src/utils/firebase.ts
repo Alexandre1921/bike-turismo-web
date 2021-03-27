@@ -5,8 +5,15 @@ import 'firebase/firestore';
 import 'firebase/functions';
 
 if (firebase.apps.length === 0) {
-    // @ts-ignore
-    firebase.initializeApp(process.env.secrets.FIREBASE_SERVICE_ACCOUNT_BIKE_TURISMO);
+    firebase.initializeApp({
+        apiKey: process.env.FIREBASE_APIKEY,
+        authDomain: process.env.FIREBASE_AUTHDOMAIN,
+        projectId: process.env.FIREBASE_PROJECTID,
+        storageBucket: process.env.FIREBASE_STORAGEBUCKET,
+        messagingSenderId: process.env.FIREBASE_MESSAGINGSENDERID,
+        appId: process.env.FIREBASE_APPID,
+        measurementId: process.env.FIREBASE_MEASUREMENTID
+    });
 }
 
 export const db = firebase.firestore();
