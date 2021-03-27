@@ -5,7 +5,6 @@ import 'firebase/firestore';
 import 'firebase/functions';
 
 if (firebase.apps.length === 0) {
-    console.log(process.env.serviceAccount);
     firebase.initializeApp(process.env.serviceAccount!);
 }
 

@@ -16,6 +16,8 @@ jobs:
           projectId: bike-turismo
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
+          # teste
+          TESTE: '${{ secrets.TESTE }}'
           # service-account
           FIREBASE_APIKEY: '${{ secrets.FIREBASE_APIKEY }}'
           FIREBASE_AUTHDOMAIN: '${{ secrets.FIREBASE_AUTHDOMAIN }}'
