@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/layout";
+import { Box, Divider, Heading } from "@chakra-ui/layout";
 
 import { useMemo } from "react";
 import dynamic from 'next/dynamic'
@@ -15,7 +15,9 @@ const Map = () => {
   ), [/* list variables which should trigger a re-render here */])
   
   return (
-    <Box mb={8} w="full">
+    <Box mb={8} w="full" h="container.md">
+      <Heading>Rota para UTFPR</Heading>
+      <Divider bgColor="#666" marginTop={3} marginBottom={5} />
       <Map />
     </Box>
   );

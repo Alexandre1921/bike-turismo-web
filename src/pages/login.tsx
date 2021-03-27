@@ -5,7 +5,7 @@ import { Formik, Field, Form } from 'formik';
 import { validateEmail, validatePassword } from "utils/validation";
 import { auth } from "utils/firebase";
 import Input from "components/input";
-import { useAuth } from "hooks";
+import { useAuth } from "hooks/auth";
 import { useRouter } from 'next/router';
 
 const Home = () => {
