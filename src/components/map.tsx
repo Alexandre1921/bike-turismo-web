@@ -1,4 +1,5 @@
 import { MapContainer, TileLayer } from "react-leaflet";
+import 'leaflet/dist/leaflet.css';
 
 const Map = () => {
     const position = {lat: 51.505, lng:-0.09};
