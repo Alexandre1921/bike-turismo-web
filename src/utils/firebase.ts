@@ -5,15 +5,7 @@ import 'firebase/firestore';
 import 'firebase/functions';
 
 if (firebase.apps.length === 0) {
-    firebase.initializeApp({
-        apiKey: process.env.FIREBASE_APIKEY,
-        authDomain: process.env.FIREBASE_AUTHDOMAIN,
-        projectId: process.env.FIREBASE_PROJECTID,
-        storageBucket: process.env.FIREBASE_STORAGEBUCKET,
-        messagingSenderId: process.env.FIREBASE_MESSAGINGSENDERID,
-        appId: process.env.FIREBASE_APPID,
-        measurementId: process.env.FIREBASE_MEASUREMENTID
-    });
+    firebase.initializeApp(process.env.serviceAccount!);
 }
 
 export const db = firebase.firestore();
