@@ -5,7 +5,8 @@ import 'firebase/firestore';
 import 'firebase/functions';
 
 if (firebase.apps.length === 0) {
-    firebase.initializeApp(process.env.FIREBASE_SERVICE_ACCOUNT_BIKE_TURISMO!);
+    // @ts-ignore
+    firebase.initializeApp(process.env.secrets.FIREBASE_SERVICE_ACCOUNT_BIKE_TURISMO);
 }
 
 export const db = firebase.firestore();
