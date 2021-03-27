@@ -5,8 +5,23 @@ import { useState } from "react";
 import { PathOptions } from "leaflet";
 import route from "routes/utfpr.json";
 import { pointer } from "assets/pointer";
-import { Center, Divider } from "@chakra-ui/react"
+import { Center, Divider } from "@chakra-ui/react";
+import L from 'leaflet';
 
+const _chunkSize = 2;
+function sliceInChunks(original: { lat: number;lng: number; }[]): { lat: number;lng: number; }[][]  {
+    return original.map((_value, i) => original.slice(i, i + _chunkSize));
+}
+
+function getChunks(coordenatesArray: { lat: number;lng: number; }[]): { lat: number;lng: number; }[][] {
+    return coordenatesArray.length%2 ? sliceInChunks(coordenatesArray).slice(0,-1) : sliceInChunks(coordenatesArray);
+}
+
+function getDistanceInMeters(coordenatesArray: { lat: number;lng: number; }[]) {
+    return getChunks(coordenatesArray).map(coordenates =>
+        L.latLng(coordenates[0].lat, coordenates[0].lng).distanceTo(coordenates[1])
+    ).reduce((v,vv)=>v+vv);
+}
 
 const Map = () => {
     const position = { lat: -25.721454, lng: -53.0833871 };
