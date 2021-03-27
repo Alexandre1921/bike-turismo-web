@@ -1,18 +1,28 @@
-import React, { useState } from "react";
-import { Flex, Progress, Center, Heading, Divider, Grid, Box,FormControl, FormLabel, FormHelperText,InputGroup,InputLeftElement, Input, FormErrorMessage, InputProps, Button } from "@chakra-ui/react"
+import React, { useEffect, useState } from "react";
+import { Flex, Progress, Center, Heading, Divider, Grid, Box, Spinner, Button } from "@chakra-ui/react"
 import { EmailIcon, LockIcon } from "@chakra-ui/icons"
 import { Formik, Field, Form } from 'formik';
-import { validateEmail, validatePassword } from "../utils/validation";
-import { auth } from "../utils/firebase";
-
-auth.onAuthStateChanged((user)=>{
-  console.log(user);
-})
+import { validateEmail, validatePassword } from "utils/validation";
+import { auth } from "utils/firebase";
+import Input from "components/input";
+import { useAuth } from "hooks";
+import { useRouter } from 'next/router';
 
 const Home = () => {
+  const router = useRouter();
+
   const [ isLoading, setIsLoading ] = useState(false);
 
-  return (
+  const { user, userDataPresent } = useAuth();
+
+  useEffect(() => {
+    if (!!userDataPresent) {
+      router.push("/");
+    }
+  }, [user]);
+
+  return (!!user || !userDataPresent) ? <Center><Spinner size="xl" /></Center> :
+  (
       <Grid 
         as="main"
         templateColumns="1fr 100% 1fr"
@@ -45,43 +55,32 @@ const Home = () => {
                   setIsLoading(true);
                   actions.setSubmitting(false);
                   auth.signInWithEmailAndPassword(email, password).then(res=>res);
+                  router.push("/");
                 }}
               >
                 {({isSubmitting}) => (
                   <Form>
-                    <Field name="email" validate={validateEmail}>
-                      {({ field, form }: {field: InputProps, form: any }) => (
-                        <FormControl isInvalid={form.errors['email'] && form.touched['email']}>
-                          <InputGroup>
-                            <InputLeftElement
-                              pointerEvents="none"
-                            >
-                              <EmailIcon color="gray.400" />
-                            </InputLeftElement>
-                            <Input {...field} id="email" placeholder="email" disabled={isLoading} />
-                          </InputGroup>
-                          {form.errors['email'] ? <FormErrorMessage>{form.errors['email']}</FormErrorMessage> : <FormHelperText>Nós nunca vamos compartilhar seu email.</FormHelperText>}
-                        </FormControl>
-                      )}
-                    </Field>
+                    <Input
+                      name={"email"}
+                      icon={<EmailIcon color="gray.400" />}
+                      validation={validateEmail}
+                      id="email"
+                      placeholder="email"
+                      disabled={isLoading}
+                    />
 
                     <Divider marginY={2} opacity={0}/>
 
-                    <Field name="password" validate={validatePassword}>
-                      {({ field, form }: {field: InputProps, form: any }) => (
-                        <FormControl isInvalid={form.errors['password'] && form.touched['password']}>
-                          <InputGroup>
-                            <InputLeftElement
-                              pointerEvents="none"
-                            >
-                              <LockIcon color="gray.400" />
-                            </InputLeftElement>
-                            <Input {...field} type="password" id="password" placeholder="senha" autoComplete="current-password" disabled={isLoading} />
-                          </InputGroup>
-                          <FormErrorMessage>{form.errors['password']}</FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
+                    <Input
+                      name="password"
+                      icon={<LockIcon color="gray.400" />}
+                      validation={validatePassword}
+                      type="password"
+                      id="password"
+                      placeholder="senha"
+                      autoComplete="current-password"
+                      disabled={isLoading}
+                    />
 
                     <Center>
                       <Button
