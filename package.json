@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "deploy": "yarn install && next build && next export",
+    "deploy": "echo testando---------------------------${TESTE} && yarn install && next build && next export",
     "prettify": "prettier --write src/"
   },
   "dependencies": {
