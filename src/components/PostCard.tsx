@@ -16,32 +16,36 @@ const Post: React.FC<PostProps> = ({ title, description, source }) => {
       >
         <Text 
           color="grey"
-          padding="8px 1px" 
+          padding="4px" 
           fontSize="11px" 
           fontWeight="600"
         >
           Março 26, 2021
         </Text>
-        <Box h="14rem">
+
+        <Box>
           <Image
-            objectFit="fill" 
+            h="18rem"
             display="inline-block"
             paddingRight="4px"
             src={source} 
             alt="image" 
           />
-        <Box h="5em">
-          <LinkOverlay m="4" href="#">
-            <Heading fontSize="xl">{title}</Heading>
-          </LinkOverlay>
-        </Box>
-          <Text 
-            mt={4}
-            lineHeight="1.8"
-            marginTop="0"
-          >
-            {description}
-          </Text>
+
+          <Box>
+            <LinkOverlay m="4" href="#">
+              <Heading h="auto" fontSize="xl">{title}</Heading>
+            </LinkOverlay>
+          </Box>
+ 
+          <Box>
+            <Text 
+              marginTop="0"
+            >
+              {description}
+            </Text>
+          </Box>
+ 
         </Box>
     </LinkBox>
     );

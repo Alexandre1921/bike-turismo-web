@@ -1,13 +1,15 @@
 import React from 'react';
 
 import { Box, Flex} from '@chakra-ui/react';
+import { useMediaQuery } from "@chakra-ui/media-query";
 
 import PostCard from '../PostCard';
 
  
 const Blog: React.FC = () => {
+  const [isSmallerThan680] = useMediaQuery("(max-width: 680px)");
   return (
-    <Flex>
+    <Flex  flexDirection={isSmallerThan680 ? "column" : "row" }>
       <Box>
         <PostCard
           title="Por que andar de bike faz bem?"

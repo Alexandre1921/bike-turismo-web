@@ -6,8 +6,12 @@ import { FaSearch } from 'react-icons/fa';
 import { GiRank3 } from 'react-icons/gi';
 import { RiRoadMapLine } from 'react-icons/ri';
 
+// TODO: @media resposive
+import { GiHamburgerMenu } from 'react-icons/gi';
+
 import AccessibleLink from "../AccessibleLink";
 import Login from "../LoginButtons";
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   return (
@@ -28,14 +32,15 @@ const Header = () => {
             <Heading as="h1">Ranking</Heading>
           </Button>
         </AccessibleLink>
-        <AccessibleLink href="/">
+        <AccessibleLink href="/map">
           <Button background={"transparent"} leftIcon={<RiRoadMapLine />}>
             <Heading as="h1">Map</Heading>
           </Button>
         </AccessibleLink>
+        <ThemeToggle />
       </Box>
 
-      <Box marginLeft="auto">
+      <Box p={0} marginLeft="auto">
         <Login />
       </Box>
     </Flex>
