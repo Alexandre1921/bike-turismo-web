@@ -15,7 +15,6 @@ import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   return (
-<<<<<<< HEAD
     <Flex 
       as="header" 
       width="full" 
@@ -38,14 +37,6 @@ const Header = () => {
             <Heading as="h1">Map</Heading>
           </Button>
         </AccessibleLink>
-=======
-    <Flex as="header" width="full" align="center">
-      <AccessibleLink href="/">
-        <Heading as="h1">Bike turismo</Heading>
-      </AccessibleLink>
-
-      <Box marginLeft="auto">
->>>>>>> main
         <ThemeToggle />
       </Box>
 
