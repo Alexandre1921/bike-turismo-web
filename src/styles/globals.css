@@ -1,1 +1,9 @@
 /* Global Styling here */
+html {
+    background: url(../images/falling-leaves.png);
+    background-repeat: repeat;
+    background-size: 300px;
+    background-color: #00796B;
+}
+
+
