@@ -1,6 +1,17 @@
 const withPWA = require("next-pwa");
 
 module.exports = withPWA({
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: {
+        test: /\.(js|ts)x?$/,
+      },
+      use: ['@svgr/webpack'],
+    });
+
+    return config;
+  },
   env: {
     FIREBASE_APIKEY: process.env.FIREBASE_APIKEY,
     FIREBASE_AUTHDOMAIN: process.env.FIREBASE_AUTHDOMAIN,
