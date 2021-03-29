@@ -8,7 +8,7 @@ import Search from "../components/Search";
 const Home = () => {
   return (
     <Box mb={8} w="full">
-      <Search placeholder="Buscar trilha..."/>
+      <Search placeholder="Buscar trilha pelo nome"/>
       <Blog />
     </Box>
   );

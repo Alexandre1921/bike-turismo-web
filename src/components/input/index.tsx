@@ -4,7 +4,7 @@ import React from "react";
 
 interface Props extends InputProps {
     icon: React.ReactNode;
-    validation(value: string): string | undefined;
+    validation?(value: string): string | undefined;
     name: string;
     disabled: boolean;
 }
