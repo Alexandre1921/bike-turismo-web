@@ -1,5 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+.env
+
 # npm
 package-lock.json
 package.json 
@@ -47,3 +49,4 @@ yarn.lock
 # firebase
 .firebase
 firebase-debug.log
+service-account-file.json

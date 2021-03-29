@@ -1,37 +1,31 @@
-import React, { useState } from "react";
-import { Flex, Progress, Center, Heading, Divider, Grid, Box,FormControl, FormLabel, FormHelperText,InputGroup,InputLeftElement, Input, FormErrorMessage, InputProps, Button } from "@chakra-ui/react"
+import React, { useEffect, useState } from "react";
+import { Flex, Progress, Center, Heading, Divider, Grid, Box, Spinner, Button } from "@chakra-ui/react"
 import { EmailIcon, LockIcon } from "@chakra-ui/icons"
 import { Formik, Field, Form } from 'formik';
+import { validateEmail, validatePassword } from "utils/validation";
+import { auth } from "utils/firebase";
+import Input from "components/input";
+import { useAuth } from "hooks";
+import { useRouter } from 'next/router';
 
 const Home = () => {
+  const router = useRouter();
+
   const [ isLoading, setIsLoading ] = useState(false);
 
-  function validateEmail(value: string) {
-    const exp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let error;
-    if (!value) {
-      error = "O email é necessário"
-    } else if (!exp.test(value)) {
-      error = "Email inválido"
-    }
-    return error;
-  }
+  const { user, userDataPresent } = useAuth();
 
-  function validatePassword(value: string) {
-    const exp = /(?=.*[0-9a-zA-Z]).{6,}/;
-    let error
-    if (!value) {
-      error = "A senha é necessária"
-    } else if (!exp.test(value)) {
-      error = "Senha inválida"
+  useEffect(() => {
+    if (!!userDataPresent) {
+      router.push("/");
     }
-    return error
-  }
+  }, [user]);
 
-  return (
+  return (!!user || !userDataPresent) ? <Center><Spinner size="xl" /></Center> :
+  (
       <Grid 
         as="main"
-        templateColumns="1fr 400px 1fr"
+        templateColumns="1fr 100% 1fr"
         templateRows="1fr 100% 1fr"
         templateAreas="
           '. . .'
@@ -57,47 +51,36 @@ const Home = () => {
 
               <Formik
                 initialValues={{ email: "", password: "" }}
-                onSubmit={(values, actions) => {
+                onSubmit={({ email, password }, actions) => {
                   setIsLoading(true);
-                  console.log(values);
                   actions.setSubmitting(false);
+                  auth.signInWithEmailAndPassword(email, password).then(res=>res);
+                  router.push("/");
                 }}
               >
                 {({isSubmitting}) => (
                   <Form>
-                    <Field name="email" validate={validateEmail}>
-                      {({ field, form }: {field: InputProps, form: any }) => (
-                        <FormControl isInvalid={form.errors['email'] && form.touched['email']}>
-                          <InputGroup>
-                            <InputLeftElement
-                              pointerEvents="none"
-                            >
-                              <EmailIcon color="gray.400" />
-                            </InputLeftElement>
-                            <Input {...field} id="email" placeholder="email" disabled={isLoading} />
-                          </InputGroup>
-                          {form.errors['email'] ? <FormErrorMessage>{form.errors['email']}</FormErrorMessage> : <FormHelperText>Nós nunca vamos compartilhar seu email.</FormHelperText>}
-                        </FormControl>
-                      )}
-                    </Field>
+                    <Input
+                      name={"email"}
+                      icon={<EmailIcon color="gray.400" />}
+                      validation={validateEmail}
+                      id="email"
+                      placeholder="email"
+                      disabled={isLoading}
+                    />
 
                     <Divider marginY={2} opacity={0}/>
 
-                    <Field name="password" validate={validatePassword}>
-                      {({ field, form }: {field: InputProps, form: any }) => (
-                        <FormControl isInvalid={form.errors['password'] && form.touched['password']}>
-                          <InputGroup>
-                            <InputLeftElement
-                              pointerEvents="none"
-                            >
-                              <LockIcon color="gray.400" />
-                            </InputLeftElement>
-                            <Input {...field} type="password" id="password" placeholder="senha" autoComplete="current-password" disabled={isLoading} />
-                          </InputGroup>
-                          <FormErrorMessage>{form.errors['password']}</FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
+                    <Input
+                      name="password"
+                      icon={<LockIcon color="gray.400" />}
+                      validation={validatePassword}
+                      type="password"
+                      id="password"
+                      placeholder="senha"
+                      autoComplete="current-password"
+                      disabled={isLoading}
+                    />
 
                     <Center>
                       <Button
