@@ -1,4 +1,4 @@
-import { Box, Center, Divider, Heading } from "@chakra-ui/layout";
+import { Box, Center } from "@chakra-ui/layout";
 
 import { useEffect, useMemo, useState } from "react";
 import dynamic from 'next/dynamic'
@@ -24,6 +24,7 @@ const Map = () => {
       ssr: false // This line is important. It's what prevents server-side render
     }
   ), [/* list variables which should trigger a re-render here */])
+  
   return (
     <Box mb={8} w="full" h="full">
       {route && <Map route={route} />}
