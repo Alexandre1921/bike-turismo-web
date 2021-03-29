@@ -83,8 +83,6 @@ const Map: React.FC<Props> = ({ route }: Props) => {
     const cancelRef = useRef(null);
     const color = useColorModeValue("gray.800", "white")
 
-    const position = { lat: -25.721454, lng: -53.0833871 };
-
     const [ polyline, setPolylines ] = useState(
         {
             pathOptions: { color: 'lime', opacity:0.5, weight: 5 } as PathOptions,
@@ -229,7 +227,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-            <MapContainer center={position} zoom={14} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
+            <MapContainer center={polyline.positions[0]} zoom={14} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
                 <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
