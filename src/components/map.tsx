@@ -3,8 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import genKey from "utils/genKey";
 import { useRef, useState } from "react";
 import { PathOptions } from "leaflet";
-import route from "routes/utfpr.json";
-import { pointer } from "helper/pointer";
+import { IPointer, pointerIcon, pointerColor } from "helper/pointer";
 import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Avatar, Badge, Box, Button, Center, Divider, Flex, HStack, Input, Stack, Text, useClipboard, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import L from 'leaflet';
 import { ShareIcon } from "helper/icon";
@@ -46,7 +45,39 @@ function normalizeDistance(distance: number) {
     return distance.toPrecision(2).toLocaleString();
 }
 
-const Map = () => {
+type IBadges = "university" | "green" | "products";
+
+export interface IRoute {
+    name: string;
+    description: string;
+    badges: Array<IBadges>;
+    pointers: {
+        type: IPointer;
+        name: string;
+        avatar_url: string;
+        alias: string;
+        pos: {
+            lat: number;
+            lng: number;
+        };
+    }[];
+    positions: {
+        lat: number;
+        lng: number;
+    }[];
+    createTime: Date;
+}
+interface Props {
+    route: IRoute;
+}
+
+const badges = {
+    university: { variant:"solid", colorScheme: "facebook", children: "universitária" },
+    green: { variant:"solid", colorScheme: "green", children: "verde" },
+    products: { variant:"solid", colorScheme: "yellow", children: "produtos" }
+};
+
+const Map: React.FC<Props> = ({ route }: Props) => {
     const { hasCopied, onCopy } = useClipboard(window.location.href);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const cancelRef = useRef(null);
@@ -76,33 +107,25 @@ const Map = () => {
         // })
         return null;
     }
-
+    
     function Info() {
         return (
           <div className="leaflet-top leaflet-right">
             <Box padding={2} maxWidth={400} bg="gray.500" borderRadius={5} margin={2} minWidth={250}>
                 <Stack direction="row">
-                    <Badge variant="solid" colorScheme="facebook">
-                        universitária
-                    </Badge>
-                    <Badge variant="solid" colorScheme="green">
-                        verde
-                    </Badge>
-                    <Badge variant="solid" colorScheme="yellow">
-                        produtos
-                    </Badge>
+                    {route.badges.map(badge => <Badge {...badges[badge]} key={genKey()} />)}
                 </Stack>
                 <Divider marginY={2} />
                 <Flex>
-                    <Avatar src="/assets/cachoeira.jpeg" />
+                    <Avatar src="/assets/utfpr.png" />
                     <Box ml="3">
                         <HStack direction="row">
-                            <Text fontWeight="bold">UTFPR</Text>
+                            <Text fontWeight="bold">{route.name}</Text>
                             <Badge ml="1" colorScheme="green">
                                 Nova
                             </Badge>
                         </HStack>
-                        <Text fontSize="sm">Instituição de ensino</Text>
+                        <Text fontSize="sm">{route.description}</Text>
                     </Box>
                 </Flex>
                 <Divider marginY={2} />
@@ -115,7 +138,7 @@ const Map = () => {
                 <Center>
                     <Flex>
                         <Button onClick={onOpen} direction="row" cursor="pointer" className="leaflet-bar leaflet-control">
-                            <Text fontSize="md" fontWeight="bold">Compartilhe</Text>
+                            <Text fontSize="md" fontWeight="bold">Compartilhar</Text>
                             <Divider marginX={2}></Divider>
                             <ShareIcon fill={color}></ShareIcon>
                         </Button>
@@ -212,66 +235,17 @@ const Map = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <Polyline {...polyline} />
-                {[polyline.positions[0], polyline.positions[polyline.positions.length-1]].map((pointerPos, index) => 
+                {route.pointers.map(pointer => 
                     <div key={genKey()}>
-                        <Marker position={pointerPos} icon={pointer()}>
-                            <Popup>
-                                {index===0 ? 
-                                <>
-                                    <Center margin={2}>
-                                        <Avatar src="/assets/centroNorte.jpg" />
-                                    </Center>
-                                    <Center>Centro Norte</Center>
-                                    <Divider marginY={0.5} bgColor="#666" />
-                                    <Center>
-                                        <Text fontWeight="bold" margin={"0px !important"}>Começo da rota</Text>
-                                    </Center>
-                                    
-                                    
-                                </> 
-                                : <>
-                                    <Center margin={2}>
-                                        <Avatar src="/assets/utfpr.png" />
-                                    </Center>
-                                    <Center>UTFPR</Center>
-                                    <Divider marginY={0.5} bgColor="#666" />
-                                    <Center>
-                                        <Text fontWeight="bold" margin={"0px !important"}>Fim da rota</Text>
-                                    </Center>
-                                </>}
-                            </Popup>
-                        </Marker>
-                        <LocationMarker/>
-                    </div>
-                )}
-                {route.pointers.honey.map(pointerPos => 
-                    <div key={genKey()}>
-                        <Marker position={pointerPos} icon={pointer("honey")}>
+                        <Marker position={pointer.pos} icon={pointerIcon(pointer.type)}>
                             <Popup>
                                 <Center margin={2}>
-                                    <Avatar src="/assets/vendaMel.jpeg" />
+                                    <Avatar src={pointer.avatar_url} />
                                 </Center>
-                                <Center>loja do zé</Center>
+                                <Center>{pointer.name}</Center>
                                 <Divider marginY={0.5} bgColor="#666" />
                                 <Center>
-                                    <Text fontWeight="bold" margin={"0px !important"} color="yellow.500">Venda de mel</Text>
-                                </Center>
-                            </Popup>
-                        </Marker>
-                        <LocationMarker/>
-                    </div>
-                )}
-                {route.pointers.green.map(pointerPos => 
-                    <div key={genKey()}>
-                        <Marker position={pointerPos} icon={pointer("green")}>
-                            <Popup>
-                                <Center margin={2}>
-                                    <Avatar src="/assets/cachoeira.jpeg" />
-                                </Center>
-                                <Center>Cachoeira maravilha</Center>
-                                <Divider marginY={0.5} bgColor="#666" />
-                                <Center>
-                                    <Text fontWeight="bold" margin={"0px !important"} color="green">Beleza natural</Text>
+                                    <Text fontWeight="bold" margin={"0px !important"} color={pointerColor(pointer.type)}>{pointer.alias}</Text>
                                 </Center>
                             </Popup>
                         </Marker>

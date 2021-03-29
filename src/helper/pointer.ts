@@ -1,6 +1,8 @@
 import L from 'leaflet';
 
-const pointer = (icon: "green" | "honey" | "default" = "default") => {
+export type IPointer = "green" | "honey" | "default" ;
+
+export const pointerIcon = (icon: IPointer = "default") => {
     const getUrl = () => {
         switch (icon) {
             case "green":
@@ -22,4 +24,13 @@ const pointer = (icon: "green" | "honey" | "default" = "default") => {
     });
 };
 
-export { pointer };
+export const pointerColor = (icon: IPointer = "default") => {
+    switch (icon) {
+        case "green":
+            return 'green';
+        case "honey":
+            return 'yellow.500';
+        default:
+            return '';
+    }
+};
