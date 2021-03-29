@@ -150,7 +150,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
     }
       
     return (
-        <Box top={"-2rem"} left={0} margin={0} padding={0} position="absolute" width="100%" height="100vh">
+        <Box top={"-1rem"} left={0} margin={0} padding={0} position="absolute" width="100%" height="100vh">
             <AlertDialog
                 motionPreset="slideInBottom"
                 leastDestructiveRef={cancelRef}
