@@ -1,15 +1,15 @@
 import { Box } from "@chakra-ui/layout";
 
-import SomeText from "../components/SomeText";
-import SomeImage from "../components/SomeImage";
-import CTASection from "../components/CTASection";
+import Login from "../components/LoginButtons";
+import Blog from "../components/layout/Blog";
+import Search from "../components/Search";
+
 
 const Home = () => {
   return (
     <Box mb={8} w="full">
-      <SomeText />
-      <SomeImage />
-      <CTASection />
+      <Search placeholder="Buscar trilha..."/>
+      <Blog />
     </Box>
   );
 };
