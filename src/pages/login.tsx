@@ -8,6 +8,11 @@ import Input from "components/input";
 import { useAuth } from "hooks/auth";
 import { useRouter } from 'next/router';
 
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
+
 const Home = () => {
   const router = useRouter();
 
@@ -16,10 +21,10 @@ const Home = () => {
   const { user, userDataPresent } = useAuth();
 
   useEffect(() => {
-    if (!!userDataPresent) {
+    if (!!user && userDataPresent && !user?.isAnonymous) {
       router.push("/");
     }
-  }, [user]);
+  }, [user, userDataPresent]);
 
   return (!!user || !userDataPresent) ? <Center><Spinner size="xl" /></Center> :
   (
@@ -57,8 +62,18 @@ const Home = () => {
                   onSubmit={({ email, password }, actions) => {
                     setIsLoading(true);
                     actions.setSubmitting(false);
-                    auth.signInWithEmailAndPassword(email, password).then(res=>res);
-                    router.push("/");
+                    auth.signInWithEmailAndPassword(email, password)
+                    .then(() => window.location.reload())
+                    .catch(() => {
+                      MySwal.fire({
+                        title: <strong>Erro ao realizar login</strong>,
+                        icon: 'error',
+                        html: <p>Cheque as suas credenciais</p>,
+                        focusConfirm: false,
+                        showConfirmButton: true,
+                      })
+                    })
+                    .finally(() => setIsLoading(false));
                   }}
                 >
                   {({isSubmitting}) => (
