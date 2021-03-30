@@ -1,7 +1,8 @@
 import React from "react";
-import { Box, Heading, Flex, Text, Button, FlexProps, Link, Spinner, HStack } from "@chakra-ui/react";
+import { Box, Heading, Flex, Text, Button, FlexProps, Link, Spinner, HStack, Divider } from "@chakra-ui/react";
 import { useAuth } from "hooks/auth";
 import { StarIcon, SearchIcon } from '@chakra-ui/icons'
+import ThemeToggle from "./ThemeToggle";
 
 
 type MenuItemsProps = {
@@ -10,7 +11,7 @@ type MenuItemsProps = {
 };
 
 const MenuItems: React.FC<MenuItemsProps> = ({ children, href }: MenuItemsProps) => (
-  <Link href={href}>
+  <Link href={href} _focus={{outline:"none"}}>
     <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
       {children}
     </Text>
@@ -64,7 +65,7 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
             <Text fontSize="lg">Busca</Text>
           </HStack>
         </MenuItems>
-        <MenuItems href="/ranking">
+        <MenuItems href="/ranking" >
           <HStack direction="row">
             <StarIcon/>
             <Text fontSize="lg">Ranking</Text>
@@ -75,6 +76,7 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
       <Box
         display={{ sm: show ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
+        mr={2}
       >
         {userDataPresent ? !!user && !user?.isAnonymous ?
             <Button colorScheme="red" border="1px" onClick={signOut}>
@@ -90,6 +92,7 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
           <Spinner height={10} width={10} marginEnd="3.5em" />
         }
       </Box>
+      <ThemeToggle />
     </Flex>
   );
 };

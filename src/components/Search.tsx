@@ -1,8 +1,8 @@
 import React, { FC, InputHTMLAttributes, useCallback, useEffect, useState } from 'react';
-import { Input, Box, InputGroup, InputLeftElement, LinkBox, Heading, LinkOverlay, Text, Collapse } from '@chakra-ui/react';
+import { Input, Box, InputGroup, InputLeftElement, LinkBox, Heading, LinkOverlay, Text, Collapse, useColorModeValue } from '@chakra-ui/react';
 
 import { SearchIcon } from "@chakra-ui/icons"
-import firebase, { db } from 'utils/firebase';
+import { db } from 'utils/firebase';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
@@ -25,10 +25,13 @@ const Search: FC<InputProps> = ({placeholder, ...rest }) => {
       .then(({ docs }) => setRoutes(docs.map(doc => ({ href: `/map?mapId=${doc.id}`, data: doc.data() as { name: string, details: string } }))));
   }, [searchValue, setRoutes]);
 
+  const color = useColorModeValue("white", "gray.800");
+  const secondaryColor = useColorModeValue("gray.100", "gray.900");
+
   return (
     <>
-      <Box bgColor="gray.100" paddingY="0.2rem" paddingX="0.2rem" borderRadius="0.375rem" zIndex={1}>
-        <Box display="flex" bgColor="white" borderRadius="0.375rem">
+      <Box bgColor={secondaryColor} paddingY="0.2rem" paddingX="0.2rem" borderRadius="0.375rem" zIndex={1}>
+        <Box display="flex" bgColor={color} borderRadius="0.375rem">
           <InputGroup>
             <InputLeftElement
                 pointerEvents="none"
@@ -40,7 +43,7 @@ const Search: FC<InputProps> = ({placeholder, ...rest }) => {
         </Box>
         <Collapse in={!!routes[0]} animateOpacity>
           {routes.map(({ href, data}) => (
-            <Box mt={1} bgColor="white" borderRadius="0.375rem">
+            <Box mt={1} bgColor={color} borderRadius="0.375rem">
             <LinkBox as="article" p="5" borderWidth="1px" rounded="md">
               <Box as="time" dateTime="2021-01-15 15:30:00 +0000 UTC">
                 1 dia atrás

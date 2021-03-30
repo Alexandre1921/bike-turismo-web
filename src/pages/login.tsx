@@ -42,6 +42,7 @@ const Home = () => {
           justifyContent="center"
           alignItems="center"
           maxWidth={800}
+          minW={400}
         >
           <Flex gridArea="form">
             <Box bg="gray.600" borderRadius="5px" padding="40px" width="100%" height="100%">
