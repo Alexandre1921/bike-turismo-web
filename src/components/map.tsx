@@ -146,6 +146,8 @@ const Map: React.FC<Props> = ({ route }: Props) => {
           </div>
         )
     }
+
+    const title = "Rota incrível, confira neste link";
       
     return (
         <Box top={0} left={0} margin={0} padding={0} position="absolute" width="100%" height="100vh">
@@ -173,7 +175,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <FacebookShareButton
                                         url={window.location.href}
-                                        title="Rota massa do bike turismo"
+                                        title={title}
                                     >
                                     <FacebookIcon size={32} style={{minWidth:30}} round />
                                 </FacebookShareButton>
@@ -182,7 +184,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <WhatsappShareButton
                                     url={window.location.href}
-                                    title="Rota massa do bike turismo"
+                                    title={title}
                                 >
                                     <WhatsappIcon size={32} style={{minWidth:30}} round />
                                 </WhatsappShareButton>
@@ -191,7 +193,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <TwitterShareButton
                                     url={window.location.href}
-                                    title="Rota massa do bike turismo"
+                                    title={title}
                                 >
                                     <TwitterIcon size={32} style={{minWidth:30}} round />
                                 </TwitterShareButton>
@@ -200,7 +202,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <RedditShareButton
                                     url={window.location.href}
-                                    title="Rota massa do bike turismo"
+                                    title={title}
                                 >
                                     <RedditIcon size={32} style={{minWidth:30}} round />
                                 </RedditShareButton>
@@ -209,7 +211,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <TelegramShareButton
                                     url={window.location.href}
-                                    title="Rota massa do bike turismo"
+                                    title={title}
                                 >
                                     <TelegramIcon size={32} style={{minWidth:30}} round />
                                 </TelegramShareButton>
@@ -218,7 +220,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <EmailShareButton
                                     url={window.location.href}
-                                    title="Rota massa do bike turismo"
+                                    title={title}
                                 >
                                     <EmailIcon size={32} style={{minWidth:30}} round />
                                 </EmailShareButton>

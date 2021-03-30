@@ -25,7 +25,8 @@ const Post: React.FC<PostProps> = ({ title, description, source }) => {
 
         <Box>
           <Image
-            h="18rem"
+            objectFit="cover"
+            minHeight="18rem"
             display="inline-block"
             paddingRight="4px"
             src={source} 

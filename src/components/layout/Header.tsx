@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Heading, Flex, Text, Button, FlexProps, Link, Spinner, HStack, Divider } from "@chakra-ui/react";
 import { useAuth } from "hooks/auth";
-import { StarIcon, SearchIcon } from '@chakra-ui/icons'
+import { EditIcon, StarIcon, SearchIcon } from '@chakra-ui/icons'
 import ThemeToggle from "./ThemeToggle";
 
 
@@ -12,9 +12,9 @@ type MenuItemsProps = {
 
 const MenuItems: React.FC<MenuItemsProps> = ({ children, href }: MenuItemsProps) => (
   <Link href={href} _focus={{outline:"none"}}>
-    <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
+    <Box mt={{ base: 4, md: 0 }} mr={6} display="block">
       {children}
-    </Text>
+    </Box>
   </Link>
 );
 
@@ -71,6 +71,12 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
             <Text fontSize="lg">Ranking</Text>
           </HStack>
         </MenuItems>
+        <MenuItems href="/blog" >
+          <HStack direction="row">
+            <EditIcon/>
+            <Text fontSize="lg">Blog</Text>
+          </HStack>
+        </MenuItems>
       </Box>
 
       <Box
@@ -78,21 +84,23 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
         mt={{ base: 4, md: 0 }}
         mr={2}
       >
+        <ThemeToggle />
         {userDataPresent ? !!user && !user?.isAnonymous ?
             <Button colorScheme="red" border="1px" onClick={signOut}>
               Encerrar sessão
             </Button>
             :
             <Link href="/login">
-              <Button bg="transparent" border="1px">
+              <Button colorScheme="cyan" bg="transparent" color="white" border="1px">
                 Fazer login
               </Button>
             </Link>
           :
           <Spinner height={10} width={10} marginEnd="3.5em" />
         }
+        
       </Box>
-      <ThemeToggle />
+      
     </Flex>
   );
 };
