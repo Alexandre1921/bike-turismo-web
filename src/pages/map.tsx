@@ -3,7 +3,7 @@ import { Box, Center } from "@chakra-ui/layout";
 import { useEffect, useMemo, useState } from "react";
 import dynamic from 'next/dynamic'
 import { Spinner } from "@chakra-ui/spinner";
-import { db } from "utils/firebase";
+import { db, storage } from "utils/firebase";
 import { IRoute } from "components/map";
 import { useRouter } from 'next/router'
 
@@ -13,7 +13,27 @@ const Map = () => {
   const [route, setRoute] = useState<IRoute>();
 
   useEffect(()=>{
-    mapId && db.collection("routes").doc(mapId || "").get().then(doc => doc.exists && setRoute(doc.data() as IRoute));
+    // /routes/xXLSMAvhyOKFXR4TFV2P
+    
+    mapId && db.collection("routes").doc(mapId || "").get()
+    .then(doc => doc.exists ? doc.data() as IRoute : Promise.reject("Rota não encontrada"))
+    .then(data => Promise.all(
+          data.pointers.map(pointer => 
+            storage.ref(`/routes/${mapId}/${pointer.avatar_url}`)
+            .getDownloadURL()
+        )
+      ).then((pointersUrl) => 
+        storage.ref(`/routes/${mapId}/${data.avatar_url}`)
+        .getDownloadURL()
+        .then((res) =>
+          setRoute({
+            ...data,
+            avatar_url: res,
+            pointers: data.pointers.map((pointer, index) => ({...pointer, avatar_url: pointersUrl[index]}) )
+          })
+        )
+      )
+    );
   }, [mapId]);
   
 

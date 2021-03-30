@@ -6,11 +6,11 @@ export const pointerIcon = (icon: IPointer = "default") => {
     const getUrl = () => {
         switch (icon) {
             case "green":
-                return '/assets/pointerGreen.svg';
+                return '/assets/icons/pointers/pointerGreen.svg';
             case "honey":
-                return '/assets/pointerHoney.svg';
+                return '/assets/icons/pointers/pointerHoney.svg';
             default:
-                return '/assets/pointer.svg';
+                return '/assets/icons/pointers/pointer.svg';
         }
     }
 

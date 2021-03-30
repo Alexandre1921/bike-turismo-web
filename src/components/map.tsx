@@ -48,6 +48,7 @@ function normalizeDistance(distance: number) {
 type IBadges = "university" | "green" | "products";
 
 export interface IRoute {
+    avatar_url: string;
     name: string;
     description: string;
     badges: Array<IBadges>;
@@ -115,7 +116,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                 </Stack>
                 <Divider marginY={2} />
                 <Flex>
-                    <Avatar src="/assets/utfpr.png" />
+                    <Avatar src={route.avatar_url} />
                     <Box ml="3">
                         <HStack direction="row">
                             <Text fontWeight="bold">{route.name}</Text>
