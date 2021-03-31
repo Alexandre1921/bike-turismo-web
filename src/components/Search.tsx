@@ -3,6 +3,7 @@ import { Input, Box, InputGroup, InputLeftElement, LinkBox, Heading, LinkOverlay
 
 import { SearchIcon } from "@chakra-ui/icons"
 import { db } from 'utils/firebase';
+import Link from 'next/link';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
@@ -49,16 +50,20 @@ const Search: FC<InputProps> = ({placeholder, ...rest }) => {
                 1 dia atrás
               </Box>
               <Heading size="md" my="2">
-                <LinkOverlay href={href}>
-                  {data.name}
-                </LinkOverlay>
+                <Link href={href}>
+                  <LinkOverlay href={href}>
+                    {data.name}
+                  </LinkOverlay>
+                </Link>
               </Heading>
               <Text mb="3">
                 {data.details}
               </Text>
-              <Box as="a" color="teal.400" href={href} fontWeight="bold">
-                Clique aqui para se aventurar
-              </Box>
+              <Link href={href}>
+                <Box as="a" color="teal.400" href={href} fontWeight="bold">
+                  Clique aqui para se aventurar
+                </Box>
+              </Link>
             </LinkBox>
           </Box>
           ))}

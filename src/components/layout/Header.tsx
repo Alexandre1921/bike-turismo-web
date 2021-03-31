@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, Heading, Flex, Text, Button, FlexProps, Link, Spinner, HStack, Divider } from "@chakra-ui/react";
+import { Box, Heading, Flex, Text, Button, FlexProps, Spinner, HStack, Divider } from "@chakra-ui/react";
 import { useAuth } from "hooks/auth";
 import { EditIcon, StarIcon, SearchIcon } from '@chakra-ui/icons'
 import ThemeToggle from "./ThemeToggle";
-
+import Link from 'next/link'
 
 type MenuItemsProps = {
   children: React.ReactNode;
@@ -11,8 +11,8 @@ type MenuItemsProps = {
 };
 
 const MenuItems: React.FC<MenuItemsProps> = ({ children, href }: MenuItemsProps) => (
-  <Link href={href} _focus={{outline:"none"}}>
-    <Box mt={{ base: 4, md: 0 }} mr={6} display="block">
+  <Link href={href}>
+    <Box mt={{ base: 4, md: 0 }} mr={6} display="block" cursor="pointer">
       {children}
     </Box>
   </Link>
@@ -65,13 +65,13 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
             <Text fontSize="lg">Busca</Text>
           </HStack>
         </MenuItems>
-        <MenuItems href="/ranking" >
+        <MenuItems href="/ranking">
           <HStack direction="row">
             <StarIcon/>
             <Text fontSize="lg">Ranking</Text>
           </HStack>
         </MenuItems>
-        <MenuItems href="/blog" >
+        <MenuItems href="/blog">
           <HStack direction="row">
             <EditIcon/>
             <Text fontSize="lg">Blog</Text>

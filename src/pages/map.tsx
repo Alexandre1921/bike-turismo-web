@@ -13,8 +13,6 @@ const Map = () => {
   const [route, setRoute] = useState<IRoute>();
 
   useEffect(()=>{
-    // /routes/xXLSMAvhyOKFXR4TFV2P
-    
     mapId && db.collection("routes").doc(mapId || "").get()
     .then(doc => doc.exists ? doc.data() as IRoute : Promise.reject("Rota não encontrada"))
     .then(data => Promise.all(
