@@ -53,6 +53,7 @@ const AuthProvider: React.FC<Props> = ({ children }: Props) => {
 
   const signOut = () => {
     auth.signOut();
+    window.location.reload();
   }
 
   return (

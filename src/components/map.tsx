@@ -48,6 +48,7 @@ function normalizeDistance(distance: number) {
 type IBadges = "university" | "green" | "products";
 
 export interface IRoute {
+    avatar_url: string;
     name: string;
     description: string;
     badges: Array<IBadges>;
@@ -83,8 +84,6 @@ const Map: React.FC<Props> = ({ route }: Props) => {
     const cancelRef = useRef(null);
     const color = useColorModeValue("gray.800", "white")
 
-    const position = { lat: -25.721454, lng: -53.0833871 };
-
     const [ polyline, setPolylines ] = useState(
         {
             pathOptions: { color: 'lime', opacity:0.5, weight: 5 } as PathOptions,
@@ -117,7 +116,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                 </Stack>
                 <Divider marginY={2} />
                 <Flex>
-                    <Avatar src="/assets/utfpr.png" />
+                    <Avatar src={route.avatar_url} />
                     <Box ml="3">
                         <HStack direction="row">
                             <Text fontWeight="bold">{route.name}</Text>
@@ -148,9 +147,11 @@ const Map: React.FC<Props> = ({ route }: Props) => {
           </div>
         )
     }
+
+    const title = "Rota incrível, confira neste link";
       
     return (
-        <Box top={"-1rem"} left={0} margin={0} padding={0} position="absolute" width="100%" height="100vh">
+        <Box top={0} left={0} margin={0} padding={0} position="absolute" width="100%" height="100vh">
             <AlertDialog
                 motionPreset="slideInBottom"
                 leastDestructiveRef={cancelRef}
@@ -175,7 +176,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <FacebookShareButton
                                         url={window.location.href}
-                                        title="Rota massa do bike turismo"
+                                        title={title}
                                     >
                                     <FacebookIcon size={32} style={{minWidth:30}} round />
                                 </FacebookShareButton>
@@ -184,7 +185,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <WhatsappShareButton
                                     url={window.location.href}
-                                    title="Rota massa do bike turismo"
+                                    title={title}
                                 >
                                     <WhatsappIcon size={32} style={{minWidth:30}} round />
                                 </WhatsappShareButton>
@@ -193,7 +194,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <TwitterShareButton
                                     url={window.location.href}
-                                    title="Rota massa do bike turismo"
+                                    title={title}
                                 >
                                     <TwitterIcon size={32} style={{minWidth:30}} round />
                                 </TwitterShareButton>
@@ -202,7 +203,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <RedditShareButton
                                     url={window.location.href}
-                                    title="Rota massa do bike turismo"
+                                    title={title}
                                 >
                                     <RedditIcon size={32} style={{minWidth:30}} round />
                                 </RedditShareButton>
@@ -211,7 +212,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <TelegramShareButton
                                     url={window.location.href}
-                                    title="Rota massa do bike turismo"
+                                    title={title}
                                 >
                                     <TelegramIcon size={32} style={{minWidth:30}} round />
                                 </TelegramShareButton>
@@ -220,7 +221,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                             <Center flex={1}>
                                 <EmailShareButton
                                     url={window.location.href}
-                                    title="Rota massa do bike turismo"
+                                    title={title}
                                 >
                                     <EmailIcon size={32} style={{minWidth:30}} round />
                                 </EmailShareButton>
@@ -229,7 +230,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-            <MapContainer center={position} zoom={14} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
+            <MapContainer center={polyline.positions[0]} zoom={14} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
                 <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
