@@ -48,7 +48,7 @@ const Search: FC<InputProps> = ({placeholder, ...rest }) => {
         </Box>
         <Collapse in={!!routes[0]} animateOpacity>
           {routes.map(({ href, data}) => (
-            <Box mt={1} bgColor={color} borderRadius="0.375rem">
+            <Box key={href} mt={1} bgColor={color} borderRadius="0.375rem">
             <LinkBox as="article" p="5" borderWidth="1px" rounded="md">
               {data?.updated_at ? (
                   <Box as="time" dateTime={data.updated_at.toDate().toUTCString()}>
