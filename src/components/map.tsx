@@ -4,7 +4,7 @@ import genKey from "utils/genKey";
 import { useRef, useState } from "react";
 import { PathOptions } from "leaflet";
 import { IPointer, pointerIcon, pointerColor } from "helper/pointer";
-import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Avatar, Badge, Box, Button, Center, Divider, Flex, HStack, Input, Stack, Text, useClipboard, useColorModeValue, useDisclosure } from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Avatar, Badge, Box, Button, Center, Divider, Flex, HStack, Input, Stack, Text, useClipboard, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import L from 'leaflet';
 import { ShareIcon } from "helper/icon";
 import {
@@ -21,6 +21,8 @@ import {
     EmailShareButton,
     EmailIcon,
 } from "react-share";
+import { StarIcon } from "@chakra-ui/icons";
+import firebase from "utils/firebase";
 
 const _chunkSize = 2;
 function sliceInChunks(original: { lat: number;lng: number; }[]): { lat: number;lng: number; }[][]  {
@@ -48,6 +50,7 @@ function normalizeDistance(distance: number) {
 type IBadges = "university" | "green" | "products";
 
 export interface IRoute {
+    details: string;
     avatar_url: string;
     name: string;
     description: string;
@@ -66,10 +69,12 @@ export interface IRoute {
         lat: number;
         lng: number;
     }[];
-    createTime: Date;
+    created_at: firebase.firestore.Timestamp;
+    updated_at?: firebase.firestore.Timestamp;
 }
 interface Props {
     route: IRoute;
+    reference: firebase.firestore.DocumentReference<IRoute>;
 }
 
 const badges = {
@@ -78,7 +83,7 @@ const badges = {
     products: { variant:"solid", colorScheme: "yellow", children: "produtos" }
 };
 
-const Map: React.FC<Props> = ({ route }: Props) => {
+const Map: React.FC<Props> = ({ route, reference }: Props) => {
     const { hasCopied, onCopy } = useClipboard(window.location.href);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const cancelRef = useRef(null);
@@ -108,41 +113,64 @@ const Map: React.FC<Props> = ({ route }: Props) => {
     }
     
     function Info() {
+        const handleOnClickStar = () => {
+            reference.update("stars", firebase.firestore.FieldValue.increment(1));
+        };
+
         return (
           <div className="leaflet-top leaflet-right">
-            <Box padding={2} maxWidth={400} bg="gray.500" borderRadius={5} margin={2} minWidth={250}>
-                <Stack direction="row">
-                    {route.badges.map(badge => <Badge {...badges[badge]} key={genKey()} />)}
-                </Stack>
-                <Divider marginY={2} />
-                <Flex>
-                    <Avatar src={route.avatar_url} />
-                    <Box ml="3">
-                        <HStack direction="row">
-                            <Text fontWeight="bold">{route.name}</Text>
-                            <Badge ml="1" colorScheme="green">
-                                Nova
-                            </Badge>
-                        </HStack>
-                        <Text fontSize="sm">{route.description}</Text>
-                    </Box>
-                </Flex>
-                <Divider marginY={2} />
-                <Flex>
-                    <HStack direction="row">
-                        <Text fontSize="lg" fontWeight="bold">Distância:</Text>
-                        <Text fontSize="sm">{normalizeDistance(getDistanceInKm(polyline.positions))} km</Text>
-                    </HStack>
-                </Flex>
-                <Center>
-                    <Flex>
-                        <Button onClick={onOpen} direction="row" cursor="pointer" className="leaflet-bar leaflet-control">
-                            <Text fontSize="md" fontWeight="bold">Compartilhar</Text>
-                            <Divider marginX={2}></Divider>
-                            <ShareIcon fill={color}></ShareIcon>
-                        </Button>
-                    </Flex>
-                </Center>
+            <Box padding={2} maxWidth={400} bg="gray.500" borderRadius={5} margin={2} minWidth={250} className="leaflet-bar leaflet-control">
+              <Accordion allowToggle>
+                <AccordionItem>
+                    <h2>
+                    <AccordionButton _focus={{outline:"none"}}>
+                        <Box flex="1" textAlign="left">
+                        Mais informações
+                        </Box>
+                        <AccordionIcon />
+                    </AccordionButton>
+                    </h2>
+                    <AccordionPanel>
+                        
+                            <Stack direction="row">
+                                {route.badges.map(badge => <Badge {...badges[badge]} key={genKey()} />)}
+                            </Stack>
+                            <Divider marginY={2} />
+                            <Flex>
+                                <Avatar src={route.avatar_url} />
+                                <Box ml="3">
+                                    <HStack direction="row">
+                                        <Text fontWeight="bold">{route.name}</Text>
+                                        <Badge ml="1" colorScheme="green">
+                                            Nova
+                                        </Badge>
+                                    </HStack>
+                                    <Text fontSize="sm">{route.description}</Text>
+                                </Box>
+                            </Flex>
+                            <Divider marginY={2} />
+                            <Flex>
+                                <HStack direction="row">
+                                    <Text fontSize="lg" fontWeight="bold">Distância:</Text>
+                                    <Text fontSize="sm">{normalizeDistance(getDistanceInKm(polyline.positions))} km</Text>
+                                </HStack>
+                            </Flex>
+                            <Center>
+                                <Flex>
+                                    <Button onClick={onOpen} direction="row" cursor="pointer" className="leaflet-bar leaflet-control">
+                                        <Text fontSize="md" fontWeight="bold">Compartilhar</Text>
+                                        <Divider marginX={2}></Divider>
+                                        <ShareIcon fill={color}></ShareIcon>
+                                    </Button>
+                                    <Button onClick={handleOnClickStar} direction="row" cursor="pointer" className="leaflet-bar leaflet-control">
+                                        <StarIcon fill={color}></StarIcon>
+                                    </Button>
+                                </Flex>
+                            </Center>
+                        
+                    </AccordionPanel>
+                </AccordionItem>
+            </Accordion>
             </Box>
           </div>
         )
@@ -151,7 +179,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
     const title = "Rota incrível, confira neste link";
       
     return (
-        <Box top={0} left={0} margin={0} padding={0} position="absolute" width="100%" height="100vh">
+        <Box top={0} left={0} margin={0} padding={0} width="100%" height="40vh">
             <AlertDialog
                 motionPreset="slideInBottom"
                 leastDestructiveRef={cancelRef}
@@ -161,7 +189,7 @@ const Map: React.FC<Props> = ({ route }: Props) => {
             >
                 <AlertDialogOverlay />
 
-                <AlertDialogContent>
+                <AlertDialogContent mx={2}>
                     <AlertDialogHeader>Compartilhar</AlertDialogHeader>
                     <AlertDialogBody>
                         <Flex mb={2}>

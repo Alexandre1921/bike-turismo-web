@@ -6,6 +6,7 @@ import { Spinner } from "@chakra-ui/spinner";
 import { db, storage } from "utils/firebase";
 import { IRoute } from "components/map";
 import { useRouter } from 'next/router'
+import firebase from "utils/firebase";
 
 const Map = () => {
   const { query } = useRouter();
@@ -44,8 +45,8 @@ const Map = () => {
   ), [/* list variables which should trigger a re-render here */])
   
   return (
-    <Box mb={8} w="full" h="full">
-      {route && <Map route={route} />}
+    <Box mb={8} flex="1">
+      {route && <Map route={route} reference={db.collection("routes").doc(mapId || "") as firebase.firestore.DocumentReference<IRoute>} />}
     </Box>
   );
 };
