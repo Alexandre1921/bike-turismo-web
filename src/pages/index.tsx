@@ -6,7 +6,7 @@ import { IRoute } from "components/map";
 
 import Search from "components/Search";
 import { formatDistance } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import ptBR from "date-fns/locale/pt-BR/index";
 
 import dynamic from "next/dynamic";
 import Link from "next/link";

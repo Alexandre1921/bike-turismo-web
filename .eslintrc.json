@@ -1,7 +1,7 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es6": true
     },
     "extends": [
         "plugin:react/recommended",
@@ -12,12 +12,26 @@
         "plugin:react-hooks/recommended", // React hooks rules
         "plugin:jsx-a11y/recommended" // Accessibility rules
     ],
+    "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly",
+      "React": true,
+      "google": true,
+      "mount": true,
+      "mountWithRouter": true,
+      "shallow": true,
+      "shallowWithRouter": true,
+      "context": true,
+      "expect": true,
+      "jsdom": true,
+      "JSX": true
+    },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 12,
+        "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "plugins": [
@@ -71,17 +85,5 @@
       "import/resolver": {
         "typescript": {}
       }
-    },
-    "globals": {
-      "React": true,
-      "google": true,
-      "mount": true,
-      "mountWithRouter": true,
-      "shallow": true,
-      "shallowWithRouter": true,
-      "context": true,
-      "expect": true,
-      "jsdom": true,
-      "JSX": true
     }
 }

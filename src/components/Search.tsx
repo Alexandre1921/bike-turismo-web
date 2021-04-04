@@ -16,7 +16,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { db } from "utils/firebase";
 import Link from "next/link";
 import { formatDistance } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import ptBR from "date-fns/locale/pt-BR/index";
 
 import { IRoute } from "./map";
 
