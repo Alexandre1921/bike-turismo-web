@@ -23,8 +23,8 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
   const handleToggle = (): void => setShow(!show);
   const { user, userDataPresent, signOut } = useAuth();
 
-  const chooseButton = (): false | JSX.Element   => {
-    if (userDataPresent){
+  const chooseButton = (): false | JSX.Element => {
+    if (userDataPresent) {
       return !!user && !user?.isAnonymous ? (
         <Button colorScheme="red" border="1px" onClick={signOut}>
           Encerrar sessão
@@ -35,10 +35,10 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
             Fazer login
           </Button>
         </Link>
-      )
+      );
     }
-    return !!userDataPresent && <Spinner height={10} width={10} marginEnd="3.5em" />
-  }
+    return !!userDataPresent && <Spinner height={10} width={10} marginEnd="3.5em" />;
+  };
 
   return (
     <Flex
