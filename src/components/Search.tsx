@@ -15,7 +15,8 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import { db } from "utils/firebase";
 import Link from "next/link";
-import BrazilianLocale, { formatDistance } from "date-fns";
+import { formatDistance } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 import { IRoute } from "./map";
 
@@ -80,13 +81,13 @@ const Search: FC<InputProps> = ({ placeholder }: InputProps) => {
                 {data?.updated_at ? (
                   <Box as="time" dateTime={data.updated_at.toDate().toUTCString()}>
                     {`Atualizado há ${formatDistance(new Date(), data.updated_at.toDate(), {
-                      locale: BrazilianLocale,
+                      locale: ptBR,
                     })} atrás`}
                   </Box>
                 ) : (
                   <Box as="time" dateTime={data.created_at.toDate().toUTCString()}>
                     {`Criado há ${formatDistance(new Date(), data.created_at.toDate(), {
-                      locale: BrazilianLocale,
+                      locale: ptBR,
                     })} atrás`}
                   </Box>
                 )}

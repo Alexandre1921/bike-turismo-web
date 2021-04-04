@@ -5,7 +5,8 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { IRoute } from "components/map";
 
 import Search from "components/Search";
-import { formatDistance, ptBR } from "date-fns";
+import { formatDistance } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 import dynamic from "next/dynamic";
 import Link from "next/link";

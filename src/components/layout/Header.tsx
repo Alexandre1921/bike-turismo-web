@@ -23,6 +23,23 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
   const handleToggle = (): void => setShow(!show);
   const { user, userDataPresent, signOut } = useAuth();
 
+  const chooseButton = (): false | JSX.Element   => {
+    if (userDataPresent){
+      return !!user && !user?.isAnonymous ? (
+        <Button colorScheme="red" border="1px" onClick={signOut}>
+          Encerrar sessão
+        </Button>
+      ) : (
+        <Link href="/login">
+          <Button colorScheme="cyan" bg="transparent" color="white" border="1px">
+            Fazer login
+          </Button>
+        </Link>
+      )
+    }
+    return !!userDataPresent && <Spinner height={10} width={10} marginEnd="3.5em" />
+  }
+
   return (
     <Flex
       as="nav"
@@ -76,18 +93,7 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
 
       <Box display={{ sm: show ? "block" : "none", md: "block" }} mt={{ base: 4, md: 0 }} mr={2}>
         <ThemeToggle />
-        {userDataPresent && !!user && !user?.isAnonymous ? (
-          <Button colorScheme="red" border="1px" onClick={signOut}>
-            Encerrar sessão
-          </Button>
-        ) : (
-          <Link href="/login">
-            <Button colorScheme="cyan" bg="transparent" color="white" border="1px">
-              Fazer login
-            </Button>
-          </Link>
-        )}
-        {!!userDataPresent && <Spinner height={10} width={10} marginEnd="3.5em" />}
+        {chooseButton()}
       </Box>
     </Flex>
   );
