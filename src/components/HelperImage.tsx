@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from "@chakra-ui/layout";
 import { Tooltip } from "@chakra-ui/tooltip";
 import Image from "next/image";
@@ -7,7 +8,7 @@ type HelperImageProps = {
   src: string;
 };
 
-const HelperImage = ({ label, src }: HelperImageProps) => {
+const HelperImage: React.FC<HelperImageProps> = ({ label, src }: HelperImageProps) => {
   return (
     <Tooltip hasArrow aria-label={label} label={label} placement="auto-end">
       <Box marginX={2}>

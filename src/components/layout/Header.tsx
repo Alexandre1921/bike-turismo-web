@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, Heading, Flex, Text, Button, FlexProps, Spinner, HStack, Divider } from "@chakra-ui/react";
+import { Box, Heading, Flex, Text, Button, FlexProps, Spinner, HStack } from "@chakra-ui/react";
 import { useAuth } from "hooks/auth";
-import { EditIcon, StarIcon, SearchIcon } from '@chakra-ui/icons'
+import { EditIcon, StarIcon, SearchIcon } from "@chakra-ui/icons";
+import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
-import Link from 'next/link'
 
 type MenuItemsProps = {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ const MenuItems: React.FC<MenuItemsProps> = ({ children, href }: MenuItemsProps)
 
 const Header: React.FC<FlexProps> = (props: FlexProps) => {
   const [show, setShow] = React.useState(false);
-  const handleToggle = () => setShow(!show);
+  const handleToggle = (): void => setShow(!show);
   const { user, userDataPresent, signOut } = useAuth();
 
   return (
@@ -35,18 +35,13 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
       {...props}
     >
       <Flex align="center" mr={5}>
-        <Heading as="h1" size="lg" letterSpacing={"-.1rem"}>
+        <Heading as="h1" size="lg" letterSpacing="-.1rem">
           Bike Turismo
         </Heading>
       </Flex>
 
       <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
-        <svg
-          fill="white"
-          width="12px"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg fill="white" width="12px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <title>Menu</title>
           <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
         </svg>
@@ -61,46 +56,39 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
       >
         <MenuItems href="/">
           <HStack direction="row">
-            <SearchIcon/>
+            <SearchIcon />
             <Text fontSize="lg">Busca</Text>
           </HStack>
         </MenuItems>
         <MenuItems href="/ranking">
           <HStack direction="row">
-            <StarIcon/>
+            <StarIcon />
             <Text fontSize="lg">Ranking</Text>
           </HStack>
         </MenuItems>
         <MenuItems href="/blog">
           <HStack direction="row">
-            <EditIcon/>
+            <EditIcon />
             <Text fontSize="lg">Blog</Text>
           </HStack>
         </MenuItems>
       </Box>
 
-      <Box
-        display={{ sm: show ? "block" : "none", md: "block" }}
-        mt={{ base: 4, md: 0 }}
-        mr={2}
-      >
+      <Box display={{ sm: show ? "block" : "none", md: "block" }} mt={{ base: 4, md: 0 }} mr={2}>
         <ThemeToggle />
-        {userDataPresent ? !!user && !user?.isAnonymous ?
-            <Button colorScheme="red" border="1px" onClick={signOut}>
-              Encerrar sessão
+        {userDataPresent && !!user && !user?.isAnonymous ? (
+          <Button colorScheme="red" border="1px" onClick={signOut}>
+            Encerrar sessão
+          </Button>
+        ) : (
+          <Link href="/login">
+            <Button colorScheme="cyan" bg="transparent" color="white" border="1px">
+              Fazer login
             </Button>
-            :
-            <Link href="/login">
-              <Button colorScheme="cyan" bg="transparent" color="white" border="1px">
-                Fazer login
-              </Button>
-            </Link>
-          :
-          <Spinner height={10} width={10} marginEnd="3.5em" />
-        }
-        
+          </Link>
+        )}
+        {!!userDataPresent && <Spinner height={10} width={10} marginEnd="3.5em" />}
       </Box>
-      
     </Flex>
   );
 };

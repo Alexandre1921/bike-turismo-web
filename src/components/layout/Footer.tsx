@@ -1,11 +1,11 @@
-import { Flex, Link, Text } from "@chakra-ui/layout";
+import { Flex, Link } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
+import React from "react";
 
 import { useMediaQuery } from "@chakra-ui/media-query";
 import { AiFillGithub } from "react-icons/ai";
 
-
-const Footer = () => {
+const Footer: React.FC = () => {
   const [isSmallerThan600] = useMediaQuery("(max-width: 600px)");
 
   return (

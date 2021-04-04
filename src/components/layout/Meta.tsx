@@ -1,6 +1,7 @@
 import Head from "next/head";
+import React from "react";
 
-const Meta = () => {
+const Meta: React.FC = () => {
   return (
     <Head>
       <title>Bike Turismo</title>

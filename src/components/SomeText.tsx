@@ -1,9 +1,10 @@
 import { useColorMode } from "@chakra-ui/color-mode";
 import { Box, Heading } from "@chakra-ui/layout";
+import React from "react";
 
 import HelperImage from "./HelperImage";
 
-const SomeText = () => {
+const SomeText: React.FC = () => {
   const { colorMode } = useColorMode();
 
   return (
@@ -13,7 +14,7 @@ const SomeText = () => {
       </Heading>
 
       <Box
-        backgroundColor={colorMode === "light" ? "gray.500" : "gray.200" }
+        backgroundColor={colorMode === "light" ? "gray.500" : "gray.200"}
         padding={4}
         borderRadius={4}
       >
@@ -21,10 +22,7 @@ const SomeText = () => {
           This is a
           <HelperImage src="/nextjs-black-logo.svg" label="NextJS" />
           app with
-          <HelperImage
-            src="/chakra-ui-logomark-colored.svg"
-            label="Chakra UI"
-          />
+          <HelperImage src="/chakra-ui-logomark-colored.svg" label="Chakra UI" />
           and
           <HelperImage src="/ts-logo-512.svg" label="TypeScript" />
           setup.

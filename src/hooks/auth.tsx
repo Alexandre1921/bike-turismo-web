@@ -1,21 +1,21 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-import firebase, { auth } from '../utils/firebase'
+import firebase, { auth } from "../utils/firebase";
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData)
+const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 interface IState {
-  userDataPresent: boolean
-  user: firebase.User | null
-  listener: firebase.Unsubscribe | null
+  userDataPresent: boolean;
+  user: firebase.User | null;
+  listener: firebase.Unsubscribe | null;
 }
 interface AuthContextData {
-  user?: firebase.User | null
-  userDataPresent: boolean
-  signOut: () => void
+  user?: firebase.User | null;
+  userDataPresent: boolean;
+  signOut: () => void;
 }
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const AuthProvider: React.FC<Props> = ({ children }: Props) => {
@@ -35,26 +35,26 @@ const AuthProvider: React.FC<Props> = ({ children }: Props) => {
               ...oldState,
               userDataPresent: true,
               user,
-            }))
+            }));
           } else {
             changeState(oldState => ({
               ...oldState,
               userDataPresent: true,
               user: null,
-            }))
+            }));
           }
         }),
-      })
+      });
     }
     return () => {
-      if (state.listener) state.listener()
-    }
-  }, [state])
+      if (state.listener) state.listener();
+    };
+  }, [state]);
 
-  const signOut = () => {
+  const signOut = (): void => {
     auth.signOut();
     window.location.reload();
-  }
+  };
 
   return (
     <AuthContext.Provider
@@ -66,17 +66,17 @@ const AuthProvider: React.FC<Props> = ({ children }: Props) => {
     >
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 function useAuth(): AuthContextData {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
+    throw new Error("useAuth must be used within an AuthProvider");
   }
 
-  return context
+  return context;
 }
 
-export { AuthProvider, useAuth }
+export { AuthProvider, useAuth };
