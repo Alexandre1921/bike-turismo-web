@@ -1,7 +1,7 @@
-import MasonryPost from './masonry-post'
-import PostMasonry from './post-masonry'
+import Card from './Card'
+import PostPanel from './PostsPanel'
 
 export {
-    MasonryPost,
-    PostMasonry
+    Card,
+    PostPanel
 }

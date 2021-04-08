@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export default [
+export default [ 
     {
         date: moment().format('MMMM DD, YYYY'),
         title: "Por que andar de bike faz bem?",
