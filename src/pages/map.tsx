@@ -7,7 +7,12 @@ import firebase, { db, storage } from "utils/firebase";
 import { IRoute } from "components/map";
 import { useRouter } from "next/router";
 
-const Map: React.FC = () => {
+interface IuseLogicReturn {
+  mapId: string;
+  route: IRoute | undefined;
+}
+
+const useLogic = (): IuseLogicReturn => {
   const { query } = useRouter();
   const { mapId } = query as { mapId: string };
   const [route, setRoute] = useState<IRoute>();
@@ -44,6 +49,12 @@ const Map: React.FC = () => {
     }
   }, [mapId]);
 
+  return { mapId, route };
+};
+
+const Map: React.FC = () => {
+  const { mapId, route } = useLogic();
+
   const MapComponent = useMemo(
     () =>
       dynamic(
@@ -63,7 +74,7 @@ const Map: React.FC = () => {
   );
 
   return (
-    <Box mb={8} flex="1">
+    <Box mb={8} width="100vw" height="80vh">
       {route && (
         <MapComponent
           route={route}

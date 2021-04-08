@@ -2,16 +2,16 @@ import L from "leaflet";
 
 export type IPointer = "green" | "honey" | "default";
 
-export function pointerIcon(
-  icon: IPointer = "default"
-): L.Icon<{
+interface PointerIconProps {
   iconUrl: string;
   iconRetinaUrl: string;
   iconSize: L.Point;
   iconAnchor: [number, number];
   popupAnchor: [number, number];
   className: string;
-}> {
+}
+
+export function pointerIcon(icon: IPointer = "default"): L.Icon<PointerIconProps> {
   const getUrl = (): string => {
     switch (icon) {
       case "green":
@@ -43,3 +43,5 @@ export function pointerColor(icon: IPointer = "default"): string {
       return "";
   }
 }
+
+export default { pointerIcon, pointerColor };

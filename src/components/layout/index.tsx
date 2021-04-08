@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       <Box margin="0">
         <Header />
         <Center>
-          <Box as="main" maxWidth={1200} marginY={22}>
+          <Box as="main" width="100%" height="100%">
             {children}
           </Box>
         </Center>

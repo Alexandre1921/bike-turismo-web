@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Flex,
   Progress,
@@ -11,11 +11,11 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 import { validateEmail, validatePassword } from "utils/validation";
 import { auth } from "utils/firebase";
-import Input from "components/input";
-import { useAuth } from "hooks/auth";
+import Input from "components/Input";
+import { useAuth } from "hooks/Auth";
 import { useRouter } from "next/router";
 
 import Swal from "sweetalert2";
@@ -23,7 +23,15 @@ import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
 
-const Home: React.FC = () => {
+const loginInitialValues = { email: "", password: "" };
+type ILoginValues = typeof loginInitialValues;
+
+interface IuseLogicReturn {
+  isLoading: boolean;
+  handleSubmit: ({ email, password }: ILoginValues, actions: FormikHelpers<ILoginValues>) => void;
+}
+
+const useLogic = (): IuseLogicReturn => {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -36,11 +44,44 @@ const Home: React.FC = () => {
     }
   }, [user, userDataPresent, router]);
 
-  return !!user || !userDataPresent ? (
-    <Center>
-      <Spinner size="xl" />
-    </Center>
-  ) : (
+  const handleSubmit = useCallback(
+    ({ email, password }, actions) => {
+      setIsLoading(true);
+      actions.setSubmitting(false);
+
+      auth
+        .signInWithEmailAndPassword(email, password)
+        .then(() => window.location.reload())
+        .catch(() => {
+          MySwal.fire({
+            title: <strong>Erro ao realizar login</strong>,
+            icon: "error",
+            html: <p>Cheque as suas credenciais</p>,
+            focusConfirm: false,
+            showConfirmButton: true,
+          });
+        })
+        .finally(() => setIsLoading(false));
+    },
+    [setIsLoading]
+  );
+
+  return { isLoading, handleSubmit };
+};
+
+const Home: React.FC = () => {
+  const { isLoading, handleSubmit } = useLogic();
+  const { user, userDataPresent } = useAuth();
+
+  if (!!user || !userDataPresent) {
+    return (
+      <Center>
+        <Spinner size="xl" />
+      </Center>
+    );
+  }
+
+  return (
     <Center>
       <Grid
         width="100%"
@@ -71,26 +112,7 @@ const Home: React.FC = () => {
 
               <Divider marginY={3} opacity={0} />
 
-              <Formik
-                initialValues={{ email: "", password: "" }}
-                onSubmit={({ email, password }, actions) => {
-                  setIsLoading(true);
-                  actions.setSubmitting(false);
-                  auth
-                    .signInWithEmailAndPassword(email, password)
-                    .then(() => window.location.reload())
-                    .catch(() => {
-                      MySwal.fire({
-                        title: <strong>Erro ao realizar login</strong>,
-                        icon: "error",
-                        html: <p>Cheque as suas credenciais</p>,
-                        focusConfirm: false,
-                        showConfirmButton: true,
-                      });
-                    })
-                    .finally(() => setIsLoading(false));
-                }}
-              >
+              <Formik initialValues={loginInitialValues} onSubmit={handleSubmit}>
                 {({ isSubmitting }) => (
                   <Form>
                     <Input

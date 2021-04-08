@@ -16,10 +16,15 @@ interface Props extends InputProps {
   disabled: boolean;
 }
 
+interface FieldFormProps {
+  field: InputProps;
+  form: FormikProps<{ [name: string]: string }>;
+}
+
 const SomeImage: React.FC<Props> = ({ validation, icon, name, ...rest }: Props) => {
   return (
     <Field name={name} validate={validation}>
-      {({ field, form }: { field: InputProps; form: FormikProps<{ [name: string]: string }> }) => (
+      {({ field, form }: FieldFormProps) => (
         <FormControl isInvalid={!!(form.errors[name] && form.touched[name])}>
           <InputGroup>
             <InputLeftElement pointerEvents="none">{icon}</InputLeftElement>

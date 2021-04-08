@@ -7,6 +7,7 @@ import PostCard from "../PostCard";
 
 const Blog: React.FC = () => {
   const [isSmallerThan680] = useMediaQuery("(max-width: 680px)");
+
   return (
     <Flex flexDirection={isSmallerThan680 ? "column" : "row"}>
       <Box>

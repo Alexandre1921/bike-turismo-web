@@ -1,44 +1,13 @@
 import React from "react";
-import { Box, Heading, Flex, Text, Button, FlexProps, Spinner, HStack } from "@chakra-ui/react";
-import { useAuth } from "hooks/auth";
+import { Box, Heading, Flex, Text, FlexProps, HStack } from "@chakra-ui/react";
 import { EditIcon, StarIcon, SearchIcon } from "@chakra-ui/icons";
-import Link from "next/link";
-import ThemeToggle from "./ThemeToggle";
-
-type MenuItemsProps = {
-  children: React.ReactNode;
-  href: string;
-};
-
-const MenuItems: React.FC<MenuItemsProps> = ({ children, href }: MenuItemsProps) => (
-  <Link href={href}>
-    <Box mt={{ base: 4, md: 0 }} mr={6} display="block" cursor="pointer">
-      {children}
-    </Box>
-  </Link>
-);
+import ThemeToggle from "../ThemeToggle";
+import MenuItems from "./MenuItems";
+import AuthButton from "./AuthButton";
 
 const Header: React.FC<FlexProps> = (props: FlexProps) => {
   const [show, setShow] = React.useState(false);
   const handleToggle = (): void => setShow(!show);
-  const { user, userDataPresent, signOut } = useAuth();
-
-  const chooseButton = (): false | JSX.Element => {
-    if (userDataPresent) {
-      return !!user && !user?.isAnonymous ? (
-        <Button colorScheme="red" border="1px" onClick={signOut}>
-          Encerrar sessão
-        </Button>
-      ) : (
-        <Link href="/login">
-          <Button colorScheme="cyan" bg="transparent" color="white" border="1px">
-            Fazer login
-          </Button>
-        </Link>
-      );
-    }
-    return !!userDataPresent && <Spinner height={10} width={10} marginEnd="3.5em" />;
-  };
 
   return (
     <Flex
@@ -93,7 +62,7 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
 
       <Box display={{ sm: show ? "block" : "none", md: "block" }} mt={{ base: 4, md: 0 }} mr={2}>
         <ThemeToggle />
-        {chooseButton()}
+        <AuthButton />
       </Box>
     </Flex>
   );
