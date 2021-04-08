@@ -1,5 +1,5 @@
 import { useColorModeValue } from "@chakra-ui/color-mode";
-import { Box, Center, Divider, Heading, LinkBox, LinkOverlay, Text } from "@chakra-ui/layout";
+import { Box, Center, Divider, Heading, LinkBox, Text } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { IRoute } from "components/map";
@@ -18,6 +18,7 @@ const Home: React.FC = () => {
   const mapId = "xXLSMAvhyOKFXR4TFV2P";
   const [routes, setRoutes] = useState<Array<IRoute>>([]);
   const href = `/map?mapId=${mapId}`;
+  const color = useColorModeValue("white", "gray.800");
 
   useEffect(() => {
     if (mapId) {
@@ -31,6 +32,7 @@ const Home: React.FC = () => {
         .then(docs =>
           docs.map(doc => {
             const data = doc.data() as IRoute;
+
             const getDownloadUrl = (avatar_url: string): Promise<string> =>
               storage.ref(`/routes/${mapId}/${avatar_url}`).getDownloadURL();
 
@@ -74,69 +76,67 @@ const Home: React.FC = () => {
     ]
   );
 
-  const color = useColorModeValue("white", "gray.800");
-
   return (
-    <Box mx={2} mb={8} flex="1">
-      <Search placeholder="Buscar trilha pelo nome" />
-      <Divider my={3} />
-      <Heading>Top 5 trilhas</Heading>
-      <Tabs>
-        <TabList>
-          {routes.map((route, index) => (
-            <Tab _focus={{ outline: "none" }} key={genKey()}>
-              #{index + 1} Lugar
-            </Tab>
-          ))}
-        </TabList>
-        <TabPanels>
-          {routes.map(route => (
-            <TabPanel key={genKey()}>
-              <Box mt={2} mx={5} borderRadius={5}>
-                <Map
-                  route={route}
-                  reference={
-                    db
-                      .collection("routes")
-                      .doc(mapId || "") as firebase.firestore.DocumentReference<IRoute>
-                  }
-                />
-              </Box>
-              <Box mt={1} bgColor={color} borderRadius="0.375rem">
-                <LinkBox as="article" p="5" borderWidth="1px" rounded="md">
-                  {route?.updated_at ? (
-                    <Box as="time" dateTime={route && route.updated_at.toDate().toUTCString()}>
-                      {route &&
-                        `Atualizado há ${formatDistance(new Date(), route.updated_at.toDate(), {
-                          locale: ptBR,
-                        })} atrás`}
+    <Center>
+      <Box mx={2} mb={8} flex="1" w="100%" minW={350} maxW={1200} mt={5}>
+        <Search placeholder="Buscar trilha pelo nome" />
+        <Divider my={3} />
+        <Heading mb={5}>Top 5 trilhas</Heading>
+        <Tabs>
+          <TabList>
+            {routes.map((route, index) => (
+              <Tab _focus={{ outline: "none" }} key={genKey()}>
+                #{index + 1} Lugar
+              </Tab>
+            ))}
+          </TabList>
+          <TabPanels>
+            {routes.map(route => (
+              <TabPanel key={genKey()}>
+                <Box mt={1} bgColor={color} borderRadius="0.375rem">
+                  <LinkBox as="article" p="5" borderWidth="1px" rounded="md">
+                    <Box mt={2} mx={5} borderRadius={5} mb={5}>
+                      <Map
+                        route={route}
+                        reference={
+                          db
+                            .collection("routes")
+                            .doc(mapId || "") as firebase.firestore.DocumentReference<IRoute>
+                        }
+                      />
                     </Box>
-                  ) : (
-                    <Box as="time" dateTime={route && route.created_at.toDate().toUTCString()}>
-                      {route &&
-                        `Criado há ${formatDistance(new Date(), route.created_at.toDate(), {
-                          locale: ptBR,
-                        })} atrás`}
-                    </Box>
-                  )}
-                  <Heading size="md" my="2">
+                    {route?.updated_at ? (
+                      <Box as="time" dateTime={route && route.updated_at.toDate().toUTCString()}>
+                        {route &&
+                          `Atualizado há ${formatDistance(new Date(), route.updated_at.toDate(), {
+                            locale: ptBR,
+                          })} atrás`}
+                      </Box>
+                    ) : (
+                      <Box as="time" dateTime={route && route.created_at.toDate().toUTCString()}>
+                        {route &&
+                          `Criado há ${formatDistance(new Date(), route.created_at.toDate(), {
+                            locale: ptBR,
+                          })} atrás`}
+                      </Box>
+                    )}
+                    <Heading size="md" my="2">
+                      <Link href={href}>{route && route.name}</Link>
+                    </Heading>
+                    <Text mb="3">{route && route.details}</Text>
                     <Link href={href}>
-                      <LinkOverlay href={href}>{route && route.name}</LinkOverlay>
+                      <Box as="a" color="teal.400" href={href} fontWeight="bold">
+                        Clique aqui para se aventurar
+                      </Box>
                     </Link>
-                  </Heading>
-                  <Text mb="3">{route && route.details}</Text>
-                  <Link href={href}>
-                    <Box as="a" color="teal.400" href={href} fontWeight="bold">
-                      Clique aqui para se aventurar
-                    </Box>
-                  </Link>
-                </LinkBox>
-              </Box>
-            </TabPanel>
-          ))}
-        </TabPanels>
-      </Tabs>
-    </Box>
+                  </LinkBox>
+                </Box>
+              </TabPanel>
+            ))}
+          </TabPanels>
+        </Tabs>
+      </Box>
+    </Center>
   );
 };
 
