@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Box, Grid, Heading } from '@chakra-ui/layout';
 import Link from 'next/link'
 import { Card } from '.'
+import { Grid } from '@chakra-ui/layout';
 
-type response = {
-    date: string;
+export type response = {
+    postedAt: string;
     title: string;
     description: string;
     link: string;
@@ -13,31 +13,25 @@ type response = {
 }
 
 interface Props {
-    posts: Array<response>
+    posts: Array<response>,
+    columns: number,
+    tagsOnTop: string
 } 
  
-const PostsPanel: React.FC<Props> = ({ posts = [] })  => {
-    console.log(posts)
+const PostsPanel: React.FC<Props> = ({ posts = [], columns, tagsOnTop })  => {
 
     return (
-        <>
-            {posts.map((post, index) => (
-                <Box  
-                  w="60%"
-                  p={10}
-                  key={index} 
-                  style={{ backgroundImage: `url("${post.image}")`}}
-                >
-                    <p>{post.date}</p>
-                    <Link href={post.link}>
-                        <Box>
-                            <Heading>{post.title}</Heading>
-                            <p>{post.description}</p>
-                        </Box>
-                    </Link>
-                </Box>
-            ))}
-        </>
+        <Grid
+          style={{
+              gridTemplateColumns: `repeat(${columns}, minmax(275px, 1fr))`,
+              gap: "10px"
+          }}
+        >
+            {posts.map((post, index) => 
+                <Card {...{post, index, tagsOnTop, key: index}}></Card>
+            )}
+
+        </Grid>
     );
 }
  

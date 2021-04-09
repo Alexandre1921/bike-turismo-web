@@ -1,23 +1,62 @@
 import React from 'react';
+
 import Link from 'next/link'
 
-import { Box } from '@chakra-ui/layout';
+import { Box, Heading, Text } from '@chakra-ui/layout';
 
-interface PostProps {
-    
-}
+import { response } from './PostsPanel'
+import { Button } from '@chakra-ui/button';
 
-const Card: React.FC<PostProps> = (props) => {
-    // const style = { backgroundImage: `url("${}")` }
+// type response = {
+//     date: string;
+//     title: string;
+//     description: string;
+//     link: string;
+//     image: string;
+// }
 
-    return (
-        <div></div>  
-        // <Box className="masonry-post overlay" style={style}>
-        //     <Link  href={post.link}>
-        //         <Box className="image-text"></Box>
-        //     </Link>
-        // </Box>
-    );
+interface Props {
+    index: number,
+    post: response,
+    tagsOnTop: string,
+} 
+
+const Card: React.FC<Props> = ({post, index, tagsOnTop}) => {
+   return (
+    <Link href={post.link}>
+    <Box
+        p={5}
+        key={index} 
+        style={{ backgroundImage: `url("${post.image}")`}}
+        borderRadius={3}
+        overflow="hidden"
+        _hover={{
+            color: "grey",
+            backgroundSize:'cover'
+
+        }}
+    >
+        <Text 
+          display="inline"
+          p={2}
+          fontSize="sm" 
+          backgroundColor="blackAlpha.700"
+          borderRadius={3}
+        >
+            {post.postedAt}
+        </Text>
+            <Box 
+              marginTop="50px"
+              p="10px"
+              backgroundColor="blackAlpha.700"
+              borderRadius={3}
+            >
+                <Heading>{post.title}</Heading>
+                <Text fontSize="md">{post.description}</Text>
+            </Box>
+        </Box>
+    </Link>
+   )
 }
  
 export default Card;
