@@ -14,36 +14,39 @@ import React, { useEffect, useMemo, useState } from "react";
 import firebase, { db, storage } from "utils/firebase";
 import genKey from "utils/genKey";
 
-const Home: React.FC = () => {
-  const mapId = "xXLSMAvhyOKFXR4TFV2P";
-  const [routes, setRoutes] = useState<Array<IRoute>>([]);
-  const href = `/map?mapId=${mapId}`;
+interface ISetRoute extends IRoute {
+  id: string;
+  href: string;
+}
+
+const useLogic = () => {
+  const [routes, setRoutes] = useState<Array<ISetRoute>>([]);
   const color = useColorModeValue("white", "gray.800");
 
   useEffect(() => {
-    if (mapId) {
-      db.collection("routes")
-        .orderBy("stars")
-        .limit(5)
-        .get()
-        .then(query =>
-          query.empty ? Promise.reject(new Error("Nenhuma rota encontrada")) : query.docs
-        )
-        .then(docs =>
-          docs.map(doc => {
-            const data = doc.data() as IRoute;
+    db.collection("routes")
+      .orderBy("stars")
+      .limit(5)
+      .get()
+      .then(query =>
+        query.empty ? Promise.reject(new Error("Nenhuma rota encontrada")) : query.docs
+      )
+      .then(docs =>
+        docs.map(doc => {
+          const data = doc.data() as IRoute;
 
-            const getDownloadUrl = (avatar_url: string): Promise<string> =>
-              storage.ref(`/routes/${mapId}/${avatar_url}`).getDownloadURL();
+          const getDownloadUrl = (avatar_url: string): Promise<string> =>
+            storage.ref(`/routes/${doc.id}/${avatar_url}`).getDownloadURL();
 
-            return Promise.all(
-              data.pointers.map(pointer => getDownloadUrl(pointer.avatar_url))
-            ).then(pointersUrl =>
+          return Promise.all(data.pointers.map(pointer => getDownloadUrl(pointer.avatar_url))).then(
+            pointersUrl =>
               getDownloadUrl(data.avatar_url).then(res =>
                 setRoutes(oldRoutes => [
                   ...oldRoutes,
                   {
                     ...data,
+                    id: doc.id,
+                    href: `/map?mapId=${doc.id}`,
                     avatar_url: res,
                     pointers: data.pointers.map((pointer, index) => ({
                       ...pointer,
@@ -52,11 +55,16 @@ const Home: React.FC = () => {
                   },
                 ])
               )
-            );
-          })
-        );
-    }
-  }, [mapId]);
+          );
+        })
+      );
+  });
+
+  return { routes, color };
+};
+
+const Home: React.FC = () => {
+  const { routes, color } = useLogic();
 
   const Map = useMemo(
     () =>
@@ -101,7 +109,7 @@ const Home: React.FC = () => {
                         reference={
                           db
                             .collection("routes")
-                            .doc(mapId || "") as firebase.firestore.DocumentReference<IRoute>
+                            .doc(route.id) as firebase.firestore.DocumentReference<IRoute>
                         }
                       />
                     </Box>
@@ -121,11 +129,11 @@ const Home: React.FC = () => {
                       </Box>
                     )}
                     <Heading size="md" my="2">
-                      <Link href={href}>{route && route.name}</Link>
+                      <Link href={route.href}>{route && route.name}</Link>
                     </Heading>
                     <Text mb="3">{route && route.details}</Text>
-                    <Link href={href}>
-                      <Box as="a" color="teal.400" href={href} fontWeight="bold">
+                    <Link href={route.href}>
+                      <Box as="a" color="teal.400" href={route.href} fontWeight="bold">
                         Clique aqui para se aventurar
                       </Box>
                     </Link>
