@@ -136,7 +136,11 @@ const useLogic = (): IuseLogicReturn => {
   );
 
   const handleGoogleOnClick = useCallback(() => {
-    HandleOnClickLoginWithProvider(new firebase.auth.GoogleAuthProvider());
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: 'select_account',
+    });
+    HandleOnClickLoginWithProvider(provider);
   }, []);
 
   return { isLoading, handleSubmit, handleGoogleOnClick };
