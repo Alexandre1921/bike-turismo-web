@@ -1,14 +1,13 @@
-export async function getStaticPaths() {
-    // Call an external API endpoint to get posts
-    const res = await fetch('https://.../blog')
-    const posts = await res.json()
-  
-    // Get the paths we want to pre-render based on posts
-    const paths = posts.map((post) => ({
-      params: { id: post.id },
-    }))
-  
-    // We'll pre-render only these paths at build time.
-    // { fallback: false } means other routes should 404.
-    return { paths, fallback: false }
-  }
+import { useRouter } from 'next/router'
+
+import { Box, Heading, Divider, Center } from "@chakra-ui/layout";
+import { response } from  '../../components/blog/PostsPanel';
+
+const Posts = () => {
+  const router = useRouter()
+  const { title } = router.query
+
+  return <p>Post: {title}</p>
+};
+
+export default Posts;

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Link from 'next/link'
 import { Card } from '.'
 import { Grid } from '@chakra-ui/layout';
 
@@ -9,6 +8,7 @@ export type response = {
     title: string;
     description: string;
     link: string;
+    slug: string;
     image: string;
 }
 

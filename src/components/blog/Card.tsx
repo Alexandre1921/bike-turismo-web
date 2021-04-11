@@ -7,14 +7,6 @@ import { Box, Heading, Text } from '@chakra-ui/layout';
 import { response } from './PostsPanel'
 import { Button } from '@chakra-ui/button';
 
-// type response = {
-//     date: string;
-//     title: string;
-//     description: string;
-//     link: string;
-//     image: string;
-// }
-
 interface Props {
     index: number,
     post: response,
