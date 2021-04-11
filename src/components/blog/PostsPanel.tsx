@@ -6,6 +6,7 @@ import { Grid } from '@chakra-ui/layout';
 export type response = {
     postedAt: string;
     title: string;
+    content: string;
     description: string;
     link: string;
     slug: string;
