@@ -58,7 +58,7 @@ const useLogic = () => {
           );
         })
       );
-  });
+  }, [setRoutes]);
 
   return { routes, color };
 };

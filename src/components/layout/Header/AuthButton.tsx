@@ -1,9 +1,18 @@
 import { useAuth } from "hooks/Auth";
 import React from "react";
-import Link from "next/link";
-import { Button, Spinner } from "@chakra-ui/react";
+import {
+  Button,
+  Modal,
+  ModalContent,
+  ModalOverlay,
+  Spinner,
+  useDisclosure,
+} from "@chakra-ui/react";
+import Login from "components/login";
 
 const AuthButton: React.FC = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const { user, userDataPresent, signOut } = useAuth();
 
   if (userDataPresent) {
@@ -15,13 +24,20 @@ const AuthButton: React.FC = () => {
       );
     }
     return (
-      <Link href="/login">
-        <Button colorScheme="cyan" bg="transparent" color="white" border="1px">
+      <>
+        <Button colorScheme="cyan" bg="transparent" color="white" border="1px" onClick={onOpen}>
           Fazer login
         </Button>
-      </Link>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent maxW={[300, 350, 450]}>
+            <Login />
+          </ModalContent>
+        </Modal>
+      </>
     );
   }
+
   return <Spinner height={10} width={10} marginEnd="3.5em" />;
 };
 

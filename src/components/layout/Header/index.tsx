@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Heading, Flex, Text, FlexProps, HStack } from "@chakra-ui/react";
 import { EditIcon, StarIcon, SearchIcon } from "@chakra-ui/icons";
+import Link from "next/link";
 import ThemeToggle from "../ThemeToggle";
 import MenuItems from "./MenuItems";
 import AuthButton from "./AuthButton";
@@ -21,9 +22,11 @@ const Header: React.FC<FlexProps> = (props: FlexProps) => {
       {...props}
     >
       <Flex align="center" mr={5}>
-        <Heading as="h1" size="lg" letterSpacing="-.1rem">
-          Bike Turismo
-        </Heading>
+        <Link href="/">
+          <Heading as="h1" size="lg" letterSpacing="-.1rem" cursor="pointer">
+            Bike Turismo
+          </Heading>
+        </Link>
       </Flex>
 
       <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
