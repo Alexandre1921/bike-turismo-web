@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { Box, Heading, Text } from '@chakra-ui/layout';
 
 import { response } from './PostsPanel'
-import { Button } from '@chakra-ui/button';
 
 interface Props {
     index: number,
@@ -14,8 +13,8 @@ interface Props {
 } 
 
 const Card: React.FC<Props> = ({post, index, tagsOnTop}) => {
-   return (
-    <Link href={post.link}>
+  return (
+    <Link href={`/blog/${post.slug}`}>
     <Box
         p={5}
         key={index} 

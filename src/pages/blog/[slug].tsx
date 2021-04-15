@@ -1,51 +1,49 @@
-import { useRouter } from 'next/router'
+//https://nextjs.org/docs/basic-features/data-fetching
 
-import { Box, Divider, Heading } from "@chakra-ui/layout";
-import feature from 'mocks/feature';
-import Link from 'next/link';
+import Head from 'next/head';
 
-function getRouter() {
-  const promise = new Promise ((resolve, reject) =>  {
-    const router = useRouter()
-    const { slug } = router.query
-    
-    console.log(slug)
-    
-    resolve({
-      success: true,
-      slug: slug,
-    })
-  })
+import { trending } from '../../lib/data';
+import { response } from 'components/blog/PostsPanel';
 
-  return promise
-}
-
-async function getSlugIndex(slug: string) {
-  feature.map((post, index: number) => {
-    const slugFeature = Object.values(post)[5]
-
-    if ( slug === slugFeature ) {
-      return index
-    }
-  })
-}
-
-const Posts = async () => {
-  const slugResult = getRouter()
-  console.log("resultado:" + slugResult)
-  // const index = await getSlugIndex(slugResult)
-
+export default function BlogPage({ title, content }: response) {
   return (
-    <Box>
-      <Heading>Post:{feature[0].title}</Heading>
-      <Box>{feature[0].description}</Box>
-      <Divider />
-      <Box>
-        {feature[0].content}
-      </Box>
-    </Box>
-  )
-} 
-    
+    <div>
+      <Head>
+        <title>{title}</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-export default Posts;
+      <main>
+        <h1>{title}</h1>
+        <div>{content}</div>
+      </main>
+    </div>
+  );
+}
+
+export async function getStaticProps(context: any) {
+  console.log('hi!', context)
+
+  const { params } = context;
+
+  return {
+    props: trending.find((item) => item.slug === params.slug),
+  }
+}
+
+export async function getStaticPaths() {
+  const foo = {
+    paths: trending.map((item) => (
+      { params: { slug: item.slug } }
+    )),
+    fallback: 'blocking',
+  };
+
+  return {
+    paths: [
+      { params: { slug: 'first' } },
+      { params: { slug: 'second' } }
+    ],
+    fallback: true
+  }
+}

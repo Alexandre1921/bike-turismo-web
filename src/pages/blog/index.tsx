@@ -1,11 +1,9 @@
 import { Box, Heading } from "@chakra-ui/layout";
-import { PostPanel } from  '../../components/blog';
+import { PostPanel } from '../../components/blog';
 
 import Search from "../../components/Search";
 
-import feature from '../../mocks/feature';
-import trending from '../../mocks/trending';
-
+import { feature, trending } from '../../lib/data';
 
 const Blog = () => {
   return (
@@ -13,7 +11,7 @@ const Blog = () => {
       <Box p={2}>
         <Search placeholder="Procurar Postagem" />
         <Heading>Recentes</Heading>
-        <PostPanel posts={feature} columns={3} tagsOnTop="main"/>
+        <PostPanel posts={feature} columns={3} tagsOnTop="main" />
       </Box>
       <Box p={2}>
         <Heading>Mais acessados</Heading>

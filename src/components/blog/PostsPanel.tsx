@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Card } from '.'
+import { Card } from './'
 import { Grid } from '@chakra-ui/layout';
 
 export type response = {
     postedAt: string;
     title: string;
-    content: string;
     description: string;
+    content: string;
     link: string;
     slug: string;
     image: string;
