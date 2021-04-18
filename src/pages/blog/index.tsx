@@ -1,25 +1,49 @@
-import { Box, Heading } from "@chakra-ui/layout";
-import { PostPanel } from '../../components/blog';
+import { getAllPosts } from '../../lib/api';
+import Head from 'next/head';
+import { CMS_NAME } from '../../lib/constants';
+import Post from '../../types/post';
+import { HeroPost, MoreStories } from '../../components/blog';
 
-import Search from "../../components/Search";
+type Props = {
+  allPosts: Post[]
+}
 
-import { feature, trending } from '../../lib/data';
-
-const Blog = () => {
+const Index = ({ allPosts }: Props) => {
+  const heroPost = allPosts[0];
+  const morePosts = allPosts.slice(1);
   return (
-    <Box p={10}>
-      <Box p={2}>
-        <Search placeholder="Procurar Postagem" />
-        <Heading>Recentes</Heading>
-        <PostPanel posts={feature} columns={3} tagsOnTop="main" />
-      </Box>
-      <Box p={2}>
-        <Heading>Mais acessados</Heading>
-        {/* <PostPanel posts={trending} columns={2} tagsOnTop="second" /> */}
-      </Box>
-    </Box>
+    <>
+      <Head>
+        <title>Blog BikeTurismo</title>
+      </Head>
+      {heroPost && (
+        <HeroPost
+          title={heroPost.title}
+          coverImage={heroPost.coverImage}
+          date={heroPost.date}
+          author={heroPost.author}
+          slug={heroPost.slug}
+          excerpt={heroPost.excerpt}
+        />
+      )}
+      {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+    </>
+  )
+}
 
-  );
-};
+export default Index
 
-export default Blog;
+export const getStaticProps = async () => {
+  const allPosts = getAllPosts([
+    'title',
+    'date',
+    'slug',
+    'author',
+    'coverImage',
+    'excerpt',
+  ])
+
+  return {
+    props: { allPosts },
+  }
+}

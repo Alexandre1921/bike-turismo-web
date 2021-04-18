@@ -1,49 +1,87 @@
-//https://nextjs.org/docs/basic-features/data-fetching
-
+import { useRouter } from 'next/router';
+import ErrorPage from 'next/error';
 import Head from 'next/head';
+import { Box } from '@chakra-ui/react'
+import PostType from '../../types/post';
+import { PostHeader, PostBody } from '../../components/blog';
+import { getPostBySlug, getAllPosts } from '../../lib/api'
+import markdownToHtml from 'lib/markdownToHtml';
 
-import { trending } from '../../lib/data';
-import { response } from 'components/blog/PostsPanel';
-
-export default function BlogPage({ title, content }: response) {
-  return (
-    <div>
-      <Head>
-        <title>{title}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1>{title}</h1>
-        <div>{content}</div>
-      </main>
-    </div>
-  );
+type Props = {
+  post: PostType
+  morePosts: PostType[]
+  preview?: boolean
 }
 
-export async function getStaticProps(context: any) {
-  console.log('hi!', context)
+const Post = ({ post, morePosts, preview }: Props) => {
+  const router = useRouter();
+  
+  if (!router.isFallback && !post?.slug) {
+    return <ErrorPage statusCode={404} />
+  }
 
-  const { params } = context;
+  return (
+    <Box>
+      <article>
+        <Head>
+          <title>
+            {post.title} | Blog Bike turismo
+          </title>
+          <meta property="og:image" content={post.ogImage.url} />
+        </Head>
+        <PostHeader
+          title={post.title}
+          coverImage={post.coverImage}
+          date={post.date}
+          author={post.author}
+        />
+        <PostBody content={post.content} />
+      </article>
+    </Box>
+  )
+}
+
+export default Post;
+
+type Params = {
+  params: {
+    slug: string
+  }
+}
+
+export async function getStaticProps({ params }: Params) {
+  const post = getPostBySlug(params.slug, [
+    'title',
+    'date',
+    'slug',
+    'author',
+    'content',
+    'ogImage',
+    'converImage',
+  ])
+  const content = await markdownToHtml(post.content || '');
 
   return {
-    props: trending.find((item) => item.slug === params.slug),
+    props: {
+      post: {
+        ...post,
+        content,
+      },
+    },
   }
 }
 
 export async function getStaticPaths() {
-  const foo = {
-    paths: trending.map((item) => (
-      { params: { slug: item.slug } }
-    )),
-    fallback: 'blocking',
-  };
+  const posts = getAllPosts(['slug']);
 
   return {
-    paths: [
-      { params: { slug: 'first' } },
-      { params: { slug: 'second' } }
-    ],
-    fallback: true
+    paths: posts.map((post) => {
+      return {
+        params: {
+          slug: post.slug,
+        },
+      }
+    }),
+    fallback: false,
   }
 }
