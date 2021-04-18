@@ -21,7 +21,6 @@
     "framer-motion": "^3.6.1",
     "gray-matter": "^4.0.2",
     "leaflet": "^1.7.1",
-    "moment": "^2.29.1",
     "next": "10.0.5",
     "next-pwa": "^5.0.5",
     "react": "^17.0.2",

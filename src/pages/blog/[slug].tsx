@@ -3,19 +3,19 @@ import ErrorPage from 'next/error';
 import Head from 'next/head';
 import { Container } from '@chakra-ui/layout';
 import PostType from '../../types/post';
-import { PostHeader, PostBody } from '../../components/blog';
+import { PostHeader, PostBody, MoreStories } from '../../components/blog';
 import { getPostBySlug, getAllPosts } from '../../lib/api';
 import markdownToHtml from 'lib/markdownToHtml';
 
 type Props = {
   post: PostType
-  morePosts: PostType[]
+  morePosts: PostType[] | any
   preview?: boolean
 }
 
 const Post = ({ post, morePosts, preview }: Props) => {
   const router = useRouter();
-  
+
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }

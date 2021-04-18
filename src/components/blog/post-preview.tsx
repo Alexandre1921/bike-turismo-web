@@ -38,7 +38,6 @@ const PostPreview = ({
         <DateFormatter dateString={date} />
       </Box>
       <p>{excerpt}</p>
-      <UserAvatar name={author.name} picture={author.picture} />
     </Container>
   )
 }

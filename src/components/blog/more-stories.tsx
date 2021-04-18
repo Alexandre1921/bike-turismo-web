@@ -7,6 +7,8 @@ type Props = {
 }
 
 const MoreStories = ({ posts }: Props) => {
+  console.log("-----------------------",posts);
+
   return (
     <section>
       <Heading>

@@ -50,7 +50,7 @@ const HeroPost = ({
           </Box>
           <Box>
             <p>{excerpt}</p>
-            <UserAvatar name={author.name} picture={author.picture} />
+            {/* <UserAvatar name={author.name} picture={author.picture} /> */}
           </Box>
         </Box>
       </Container>
