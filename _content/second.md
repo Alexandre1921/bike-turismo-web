@@ -1,11 +1,11 @@
 ---
-title: Top 10 trilhas para pegar covid
+title: Top 10 trilhas de bike
 date: '2020-03-16T05:35:07.322Z'
 coverImage: 'https://i.ibb.co/KyxNh9C/josh-nuttall-XVTWFHc-NIko-unsplash.jpg'
 excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus.'
 author:
   name: 'Andre Ruiz'
-  picture: '/assets/blog/authors/tim.jpeg'
+  picture: 'https://avatars.githubusercontent.com/u/36556771?v=4'
 ogImage:
   url: 'https://i.ibb.co/KyxNh9C/josh-nuttall-XVTWFHc-NIko-unsplash.jpg'
 ---

@@ -1,6 +1,6 @@
-import { PostPreview } from './'
-import Post from '../../types/post'
-import { Box, Heading } from '@chakra-ui/layout'
+import { PostPreview } from './';
+import Post from '../../types/post';
+import { Box, Heading } from '@chakra-ui/layout';
 
 type Props = {
   posts: Post[]

@@ -8,7 +8,7 @@ type Props = {
 
 const PostTitle = ({ children }: Props) => {
   return (
-    <Heading as='h1'>
+    <Heading as="h1" size="2xl" isTruncated>
       {children}
     </Heading>
   )

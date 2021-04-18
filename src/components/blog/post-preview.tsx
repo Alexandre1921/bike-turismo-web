@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, Container, Heading } from '@chakra-ui/react';
 import {
-  Avatar,
+  UserAvatar,
   DateFormatter,
   CoverImage
 } from './';
@@ -25,11 +25,11 @@ const PostPreview = ({
   slug,
 }: Props) => {
   return (
-    <Box>
+    <Container>
       <Box>
         <CoverImage slug={slug} title={title} src={coverImage} />
       </Box>
-      <Heading as='h3'>
+      <Heading as="h3">
         <Link as={`/posts/${slug}`} href="/posts/[slug]">
           <a>{title}</a>
         </Link>
@@ -38,8 +38,8 @@ const PostPreview = ({
         <DateFormatter dateString={date} />
       </Box>
       <p>{excerpt}</p>
-      <Avatar name={author.name} picture={author.picture} />
-    </Box>
+      <UserAvatar name={author.name} picture={author.picture} />
+    </Container>
   )
 }
 

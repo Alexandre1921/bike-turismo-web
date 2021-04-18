@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import Head from 'next/head';
-import { Box } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/layout';
 import PostType from '../../types/post';
 import { PostHeader, PostBody } from '../../components/blog';
-import { getPostBySlug, getAllPosts } from '../../lib/api'
+import { getPostBySlug, getAllPosts } from '../../lib/api';
 import markdownToHtml from 'lib/markdownToHtml';
 
 type Props = {
@@ -21,7 +21,7 @@ const Post = ({ post, morePosts, preview }: Props) => {
   }
 
   return (
-    <Box>
+    <Container maxW="container.lg" centerContent>
       <article>
         <Head>
           <title>
@@ -37,7 +37,7 @@ const Post = ({ post, morePosts, preview }: Props) => {
         />
         <PostBody content={post.content} />
       </article>
-    </Box>
+    </Container>
   )
 }
 
@@ -57,7 +57,7 @@ export async function getStaticProps({ params }: Params) {
     'author',
     'content',
     'ogImage',
-    'converImage',
+    'coverImage',
   ])
   const content = await markdownToHtml(post.content || '');
 

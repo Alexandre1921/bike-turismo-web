@@ -1,5 +1,6 @@
-import { Box } from '@chakra-ui/layout'
-import Link from 'next/link'
+import { Box } from '@chakra-ui/layout';
+import { Image } from "@chakra-ui/react"
+import Link from 'next/link';
 
 type Props = {
   title: string
@@ -8,12 +9,8 @@ type Props = {
 }
 
 const CoverImage = ({ title, src, slug }: Props) => {
-  const image = (
-    <img
-      src={src}
-      alt={`Cover Image for ${title}`}
-    />
-  )
+  const image = <Image src={`${src}`} alt={`${title}`} />
+  
   return (
     <Box>
       {slug ? (

@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import {
-  Avatar,
+  UserAvatar,
   DateFormatter,
   CoverImage,
   PostTitle
@@ -17,17 +17,14 @@ type Props = {
 const PostHeader = ({ title, coverImage, date, author }: Props) => {
   return (
     <>
-      <PostTitle>{title}</PostTitle>
-      <Box>
-        <Avatar name={author.name} picture={author.picture} />
+      <PostTitle>{title.toUpperCase()}</PostTitle>
+      <Box p="0.5em 0">
+        <UserAvatar name={author.name} picture={author.picture} />
       </Box>
       <Box>
         <CoverImage title={title} src={coverImage} />
       </Box>
       <Box>
-        <Box>
-          <Avatar name={author.name} picture={author.picture} />
-        </Box>
         <Box>
           <DateFormatter dateString={date} />
         </Box>

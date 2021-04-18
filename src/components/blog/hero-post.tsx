@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, Container, Heading } from '@chakra-ui/react';
 import {
-  Avatar,
+  UserAvatar,
   DateFormatter,
   CoverImage
 } from './';
@@ -26,25 +26,34 @@ const HeroPost = ({
 }: Props) => {
   return (
     <section>
-      <Box>
-        <CoverImage title={title} src={coverImage} slug={slug} />
-      </Box>
-      <Box>
+      <Container centerContent>
         <Box>
-          <Heading as='h3'>
-            <Link as={`/posts/${slug}`} href="/posts/[slug]">
-              <a>{title}</a>
-            </Link>
-          </Heading>
-          <Box >
-            <DateFormatter dateString={date} />
+          <CoverImage title={title} src={coverImage} slug={slug} />
+        </Box>
+        <Box>
+          <Box p="6px 0">
+            <Heading as='h3'>
+              <Link as={`/posts/${slug}`} href="/posts/[slug]">
+                <a>{title}</a>
+              </Link>
+            </Heading>
+            <Box
+              color="black"
+              backgroundColor="white"
+              display="inline-block"
+              p={1}
+              m="1px 0"
+              borderRadius={6}
+            >
+              <DateFormatter dateString={date} />
+            </Box>
+          </Box>
+          <Box>
+            <p>{excerpt}</p>
+            <UserAvatar name={author.name} picture={author.picture} />
           </Box>
         </Box>
-        <Box>
-          <p>{excerpt}</p>
-          <Avatar name={author.name} picture={author.picture} />
-        </Box>
-      </Box>
+      </Container>
     </section>
   )
 }

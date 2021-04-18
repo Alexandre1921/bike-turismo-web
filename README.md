@@ -1,4 +1,4 @@
-# nextchakra-starter
+# Bike-Turismo
 
 ![nextchakra-starter](https://socialify.git.ci/sozonome/nextchakra-starter/image?description=1&descriptionEditable=Template%20to%20quickly%20initialize%20nextjs%20app%20with%20Chakra%20UI%20%26%20Typescript%20setup&logo=https%3A%2F%2Fsznm.dev%2Fapp_icons%2Fnextchakra-starter.svg&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Dark)
 
@@ -42,11 +42,3 @@ You can start editing the page by modifying `src/pages/index.js`. The page auto-
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 - [Chakra UI](https://chakra-ui.com)
 - [TypeScript](https://www.typescriptlang.org)
-
-## todo
-
-- [ ] upgrade `next` to latest version when a version which are compatible with latest `next-pwa` is ready.
-  - references:
-    - https://github.com/shadowwalker/next-pwa/issues/151
-    - https://github.com/vercel/next.js/issues/21679
-  - current: lock the `next` version to `10.0.5`
