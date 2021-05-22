@@ -6,7 +6,7 @@ type Props = {
 
 const PostBody = ({ content }: Props) => {
   return (
-    <Box>
+    <Box padding={5}>
       <Box
         dangerouslySetInnerHTML={{ __html: content }}
       />
@@ -14,4 +14,4 @@ const PostBody = ({ content }: Props) => {
   )
 }
 
-export default PostBody
+export default PostBody;

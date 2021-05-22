@@ -1,4 +1,5 @@
 import { getAllPosts } from '../../lib/api';
+import { Box } from '@chakra-ui/layout';
 import Head from 'next/head';
 import Post from '../../types/post';
 import { HeroPost, MoreStories } from '../../components/blog';
@@ -10,8 +11,6 @@ type Props = {
 const Index = ({ allPosts }: Props) => {
   const heroPost = allPosts[0];
   const morePosts = allPosts.slice(1);
-
-  console.log(morePosts);
   
   return (
     <>

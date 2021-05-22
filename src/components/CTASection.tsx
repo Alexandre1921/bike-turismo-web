@@ -1,8 +1,5 @@
-import { Button } from "@chakra-ui/button";
-import { Image } from "@chakra-ui/image";
 import { Box, Flex, Link } from "@chakra-ui/layout";
 import { useMediaQuery } from "@chakra-ui/media-query";
-import { AiFillGithub } from "react-icons/ai";
 
 const CTASection = () => {
   const [isSmallerThan600] = useMediaQuery("(max-width: 600px)");

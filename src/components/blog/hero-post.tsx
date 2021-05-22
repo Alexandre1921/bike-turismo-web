@@ -33,7 +33,7 @@ const HeroPost = ({
         <Box>
           <Box p="6px 0">
             <Heading as='h3'>
-              <Link as={`/posts/${slug}`} href="/posts/[slug]">
+              <Link as={`/blog/${slug}`} href="/blog/[slug]">
                 <a>{title}</a>
               </Link>
             </Heading>

@@ -1,3 +1,4 @@
+// import { Comments } from 'react-facebook';
 import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import Head from 'next/head';
@@ -21,7 +22,14 @@ const Post = ({ post, morePosts, preview }: Props) => {
   }
 
   return (
-    <Container maxW="container.lg" centerContent>
+    <Container
+      backgroundColor="gray.600"
+      borderRadius={6}
+      p={8}
+      shadow="dark-lg"
+      maxW="container.lg"
+      centerContent
+    >
       <article>
         <Head>
           <title>

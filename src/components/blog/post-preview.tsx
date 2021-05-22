@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Box, Container, Heading } from '@chakra-ui/react';
 import {
-  UserAvatar,
   DateFormatter,
   CoverImage
 } from './';
@@ -30,7 +29,7 @@ const PostPreview = ({
         <CoverImage slug={slug} title={title} src={coverImage} />
       </Box>
       <Heading as="h3">
-        <Link as={`/posts/${slug}`} href="/posts/[slug]">
+        <Link as={`/blog/${slug}`} href="/blog/[slug]">
           <a>{title}</a>
         </Link>
       </Heading>
