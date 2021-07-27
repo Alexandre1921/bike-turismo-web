@@ -1,4 +1,4 @@
-import React, { FC, InputHTMLAttributes, useCallback, useEffect, useState } from "react";
+import React, { FC, InputHTMLAttributes } from "react";
 import {
   Input,
   Box,
@@ -9,53 +9,21 @@ import {
   LinkOverlay,
   Text,
   Collapse,
-  useColorModeValue,
 } from "@chakra-ui/react";
 
 import { SearchIcon } from "@chakra-ui/icons";
-import { db } from "utils/firebase";
 import Link from "next/link";
 import { formatDistance } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR/index";
 
-import { IRoute } from "./map";
+import useLogic from "./logic";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
 }
 
 const Search: FC<InputProps> = ({ placeholder }: InputProps) => {
-  const [searchValue, setSearchValue] = useState<string>();
-  const [routes, setRoutes] = useState<{ href: string; data: IRoute }[]>([]);
-
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchValue(e.currentTarget.value.toLowerCase());
-    },
-    [setSearchValue]
-  );
-
-  useEffect(() => {
-    if (searchValue) {
-      db.collection("routes")
-        .orderBy("nickname")
-        .startAt(searchValue)
-        .endAt(`${searchValue}\uf8ff`)
-        .limit(3)
-        .get()
-        .then(({ docs }) =>
-          setRoutes(
-            docs.map(doc => ({
-              href: `/map?mapId=${doc.id}`,
-              data: doc.data() as IRoute,
-            }))
-          )
-        );
-    }
-  }, [searchValue, setRoutes]);
-
-  const color = useColorModeValue("white", "gray.800");
-  const secondaryColor = useColorModeValue("gray.100", "gray.900");
+  const { color, secondaryColor, handleChange, routes } = useLogic();
 
   return (
     <>

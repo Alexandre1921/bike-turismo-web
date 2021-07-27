@@ -3,8 +3,9 @@ import { useColorMode } from "@chakra-ui/color-mode";
 import { Image } from "@chakra-ui/image";
 import { Box, Heading, Text, Link as ChakraLink } from "@chakra-ui/layout";
 import Link from "next/link";
+import React from "react";
 
-const Page404 = () => {
+const Page404: React.FC = () => {
   const { colorMode } = useColorMode();
 
   return (
@@ -23,9 +24,7 @@ const Page404 = () => {
 
         <Box textAlign="center" marginTop={4}>
           <Link href="/" passHref>
-            <Button
-              backgroundColor={colorMode === "light" ? "gray.300" : "teal.500"}
-            >
+            <Button backgroundColor={colorMode === "light" ? "gray.300" : "teal.500"}>
               Voltar
             </Button>
           </Link>
