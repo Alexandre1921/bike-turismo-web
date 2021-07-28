@@ -69,7 +69,7 @@ const Home: React.FC = () => {
   const Map = useMemo(
     () =>
       dynamic(
-        () => import("components/map"), // replace '@components/map' with your component's location
+        () => import("components/Map"), // replace '@components/map' with your component's location
         {
           loading: () => (
             <Center>
