@@ -19,7 +19,8 @@ export function getDistanceInMeters(coordenatesArray: ICoordinate[]): number {
 }
 
 export function getDistanceInKm(coordenatesArray: ICoordinate[]): number {
-  return getDistanceInMeters(coordenatesArray) / 1000;
+  // return getDistanceInMeters(coordenatesArray) / 1000;
+  return 12;
 }
 
 export function normalizeDistance(distance: number): string {

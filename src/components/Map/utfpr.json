@@ -1,0 +1,42 @@
+{
+  "badges": ["university", "green", "products"],
+  "details": "Conheça as maravilhas do centro norte até a Universidade Tecnológica Federal do Paraná campus Dois Vizinhos.",
+  "created_at": { "seconds": 1617332400, "nanoseconds": 0 },
+  "avatar_url": "https://firebasestorage.googleapis.com/v0/b/bike-turismo.appspot.com/o/routes%2FxXLSMAvhyOKFXR4TFV2P%2Futfpr.png?alt=media&token=ec5d7ca8-2f94-4c2f-bc0e-d5ac7e7d2c84",
+  "stars": 64,
+  "name": "UTFPR",
+  "nickname": "utfpr",
+  "updated_at": { "seconds": 1617462000, "nanoseconds": 0 },
+  "description": "Instituição de ensino",
+  "pointers": [
+    {
+      "type": "default",
+      "pos": { "lng": -53.05599331855774, "lat": -25.74271318508577 },
+      "name": "Centro Norte",
+      "avatar_url": "https://firebasestorage.googleapis.com/v0/b/bike-turismo.appspot.com/o/routes%2FxXLSMAvhyOKFXR4TFV2P%2FcentroNorte.jpeg?alt=media&token=35449027-eba5-4f64-8d1b-41f44fcf3add",
+      "alias": "Começo da rota"
+    },
+    {
+      "pos": { "lng": -53.09635519981385, "lat": -25.70567482861739 },
+      "type": "default",
+      "avatar_url": "https://firebasestorage.googleapis.com/v0/b/bike-turismo.appspot.com/o/routes%2FxXLSMAvhyOKFXR4TFV2P%2Futfpr.png?alt=media&token=ec5d7ca8-2f94-4c2f-bc0e-d5ac7e7d2c84",
+      "alias": "Fim da rota",
+      "name": "UTFPR"
+    },
+    {
+      "alias": "Venda de mel",
+      "avatar_url": "https://firebasestorage.googleapis.com/v0/b/bike-turismo.appspot.com/o/routes%2FxXLSMAvhyOKFXR4TFV2P%2FvendaMel.jpeg?alt=media&token=4877013a-8b86-4ff6-9e6b-007725a254d8",
+      "name": "Loja do Zé",
+      "pos": { "lat": -25.73813234351098, "lng": -53.06736588478089 },
+      "type": "honey"
+    },
+    {
+      "type": "green",
+      "name": "Cachoeira maravilha",
+      "pos": { "lng": -53.08577656745911, "lat": -25.71559280530412 },
+      "alias": "Beleza natural",
+      "avatar_url": "https://firebasestorage.googleapis.com/v0/b/bike-turismo.appspot.com/o/routes%2FxXLSMAvhyOKFXR4TFV2P%2Fcachoeira.jpeg?alt=media&token=ddb2c883-a87d-4d55-b02f-4d8d1e9d33af"
+    }
+  ],
+  "positions": [{ "lat": -25.74271318508577, "lng": -53.05599331855774 }]
+}
