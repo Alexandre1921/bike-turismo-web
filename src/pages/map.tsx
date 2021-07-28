@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { Spinner } from "@chakra-ui/spinner";
 import firebase, { db, storage } from "utils/firebase";
-import { IRoute } from "components/map";
+import { IRoute } from "components/Map/types";
 import { useRouter } from "next/router";
 
 interface IuseLogicReturn {
@@ -58,7 +58,7 @@ const Map: React.FC = () => {
   const MapComponent = useMemo(
     () =>
       dynamic(
-        () => import("components/map"), // replace '@components/map' with your component's location
+        () => import("components/Map"), // replace '@components/map' with your component's location
         {
           loading: () => (
             <Center>
