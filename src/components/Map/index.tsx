@@ -40,8 +40,6 @@ import {
 import { IRoute, Props } from "./types";
 import Info from "./Info";
 
-import utf from "./utfpr.json";
-
 const Map: React.FC<Props> = ({ route: Route, reference }: Props) => {
   const { hasCopied, onCopy } = useClipboard(window.location.href);
   const { isOpen, onClose } = useDisclosure();
