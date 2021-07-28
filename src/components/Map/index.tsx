@@ -37,15 +37,17 @@ import {
   EmailShareButton,
   EmailIcon,
 } from "react-share";
-import { Props } from "./types";
+import { IRoute, Props } from "./types";
 import Info from "./Info";
+
+import utf from "./utfpr.json";
 
 const Map: React.FC<Props> = ({ route: Route, reference }: Props) => {
   const { hasCopied, onCopy } = useClipboard(window.location.href);
   const { isOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
 
-  const [route, setRoute] = useState(Route);
+  const [route, setRoute] = useState<IRoute>(Route as IRoute);
 
   const polyline = {
     pathOptions: { color: "lime", opacity: 0.5, weight: 5 } as PathOptions,
@@ -53,19 +55,19 @@ const Map: React.FC<Props> = ({ route: Route, reference }: Props) => {
   };
 
   function LocationMarker(): null {
-    useMapEvent("click", e => {
-      const { lat, lng } = e.latlng;
-      setRoute(oldRoute => {
-        console.log(oldRoute, "----", {
-          ...oldRoute,
-          positions: [...oldRoute.positions, { lat, lng }],
-        });
-        return {
-          ...oldRoute,
-          positions: [...oldRoute.positions, { lat, lng }],
-        };
-      });
-    });
+    // useMapEvent("click", e => {
+    //   const { lat, lng } = e.latlng;
+    //   setRoute(oldRoute => {
+    //     console.log(oldRoute, "----", {
+    //       ...oldRoute,
+    //       positions: [...oldRoute.positions, { lat, lng }],
+    //     });
+    //     return {
+    //       ...oldRoute,
+    //       positions: [...oldRoute.positions, { lat, lng }],
+    //     };
+    //   });
+    // });
     return null;
   }
 
