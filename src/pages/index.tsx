@@ -2,7 +2,7 @@ import { useColorModeValue } from "@chakra-ui/color-mode";
 import { Box, Center, Divider, Heading, LinkBox, Text } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
-import { IRoute } from "components/map";
+import { IRoute } from "components/Map/types";
 
 import Search from "components/Search";
 import { formatDistance } from "date-fns";
