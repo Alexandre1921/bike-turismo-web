@@ -2,7 +2,7 @@ import { useColorModeValue } from "@chakra-ui/color-mode";
 import { Box, Center, Divider, Heading, LinkBox, Text } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
-import { IRoute } from "components/map";
+import { IRoute } from "components/Map/types";
 
 import Search from "components/Search";
 import { formatDistance } from "date-fns";
@@ -69,7 +69,7 @@ const Home: React.FC = () => {
   const Map = useMemo(
     () =>
       dynamic(
-        () => import("components/map"), // replace '@components/map' with your component's location
+        () => import("components/Map"), // replace '@components/map' with your component's location
         {
           loading: () => (
             <Center>
