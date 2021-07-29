@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useColorModeValue } from "@chakra-ui/react";
 
 import { db } from "utils/firebase";
-import { IRoute } from "../map";
+import { IRoute } from "../Map/types";
 
 const useLogic = () => {
   const [searchValue, setSearchValue] = useState<string>();
@@ -18,7 +18,7 @@ const useLogic = () => {
   useEffect(() => {
     if (searchValue) {
       db.collection("routes")
-        .orderBy("nickname")
+        .orderBy("name")
         .startAt(searchValue)
         .endAt(`${searchValue}\uf8ff`)
         .limit(3)

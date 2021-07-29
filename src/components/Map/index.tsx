@@ -37,6 +37,7 @@ import {
   EmailShareButton,
   EmailIcon,
 } from "react-share";
+import { db } from "utils/firebase";
 import { IRoute, Props } from "./types";
 import Info from "./Info";
 
@@ -57,14 +58,15 @@ const Map: React.FC<Props> = ({ route: Route, reference }: Props) => {
   function LocationMarker(): null {
     useMapEvent("click", e => {
       const { lat, lng } = e.latlng;
+      console.log(JSON.stringify(route));
+
       setRoute(oldRoute => {
-        console.log(oldRoute, "----", {
-          ...oldRoute,
-          positions: [...oldRoute.positions, { lat, lng }],
-        });
         return {
           ...oldRoute,
-          positions: [...oldRoute.positions, { lat, lng }],
+          positions: [...oldRoute.positions, { lat, lng }].filter((v, i, ar) => {
+            if (ar[i + 1]) return v.lat !== ar[i + 1].lat;
+            return true;
+          }),
         };
       });
     });
@@ -75,6 +77,19 @@ const Map: React.FC<Props> = ({ route: Route, reference }: Props) => {
 
   return (
     <Box width="100%" height="100%">
+      <Button
+        onClick={() => {
+          setRoute(oldRoute => {
+            oldRoute.positions.length--;
+            return {
+              ...oldRoute,
+              positions: [...oldRoute.positions],
+            };
+          });
+        }}
+      >
+        Remover ultimo ponto
+      </Button>
       <AlertDialog
         motionPreset="slideInBottom"
         leastDestructiveRef={cancelRef}
