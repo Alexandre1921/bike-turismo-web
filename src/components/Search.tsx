@@ -18,7 +18,7 @@ import Link from "next/link";
 import { formatDistance } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR/index";
 
-import { IRoute } from "./map";
+import { IRoute } from "./Map/types";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;

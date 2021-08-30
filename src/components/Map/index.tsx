@@ -52,6 +52,8 @@ const Map: React.FC<Props> = ({ route: Route, reference }: Props) => {
     positions: route.positions,
   };
 
+  console.log(JSON.stringify(route.positions));
+
   function LocationMarker(): null {
     // useMapEvent("click", e => {
     //   const { lat, lng } = e.latlng;

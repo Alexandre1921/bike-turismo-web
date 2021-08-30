@@ -25,26 +25,27 @@ const useLogic = (): IuseLogicReturn => {
         .then(doc =>
           doc.exists ? (doc.data() as IRoute) : Promise.reject(new Error("Rota não encontrada"))
         )
-        .then(data =>
-          Promise.all(
-            data.pointers.map(pointer =>
-              storage.ref(`/routes/${mapId}/${pointer.avatar_url}`).getDownloadURL()
-            )
-          ).then(pointersUrl =>
-            storage
-              .ref(`/routes/${mapId}/${data.avatar_url}`)
-              .getDownloadURL()
-              .then(res =>
-                setRoute({
-                  ...data,
-                  avatar_url: res,
-                  pointers: data.pointers.map((pointer, index) => ({
-                    ...pointer,
-                    avatar_url: pointersUrl[index],
-                  })),
-                })
-              )
-          )
+        .then(
+          data => setRoute(data)
+          // Promise.all(
+          //   data.pointers.map(pointer =>
+          //     storage.ref(`/routes/${mapId}/${pointer.avatar_url}`).getDownloadURL()
+          //   )
+          // ).then(pointersUrl =>
+          //   storage
+          //     .ref(`/routes/${mapId}/${data.avatar_url}`)
+          //     .getDownloadURL()
+          //     .then(res =>
+          //       setRoute({
+          //         ...data,
+          //         avatar_url: res,
+          //         pointers: data.pointers.map((pointer, index) => ({
+          //           ...pointer,
+          //           avatar_url: pointersUrl[index],
+          //         })),
+          //       })
+          //     )
+          // )
         );
     }
   }, [mapId]);

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useColorModeValue } from "@chakra-ui/react";
 
 import { db } from "utils/firebase";
-import { IRoute } from "../map";
+import { IRoute } from "../Map/types";
 
 const useLogic = () => {
   const [searchValue, setSearchValue] = useState<string>();

@@ -13,6 +13,7 @@ import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
 import firebase, { db, storage } from "utils/firebase";
 import genKey from "utils/genKey";
+import teste from "./teste.json";
 
 interface ISetRoute extends IRoute {
   id: string;
