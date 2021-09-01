@@ -4,24 +4,18 @@ import { Spinner } from "@chakra-ui/spinner";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { IRoute } from "components/Map/types";
 
-<<<<<<< HEAD
 import Blog from "../components/layout/Blog";
 import Search from "../components/Search";
-=======
-import Search from "components/Search";
-<<<<<<< HEAD
->>>>>>> 141af96c03ed9a8d7165eb34e665ebb2d1b444d8
-=======
+
 import { formatDistance } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR/index";
->>>>>>> 0dde63f3b20e0b707c297d62439a7bf3d32c9718
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
 import firebase, { db, storage } from "utils/firebase";
 import genKey from "utils/genKey";
-import teste from "./teste.json";
+// import teste from "./teste.json";
 
 interface ISetRoute extends IRoute {
   id: string;
