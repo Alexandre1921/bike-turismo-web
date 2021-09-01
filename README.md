@@ -50,3 +50,4 @@ You can start editing the page by modifying `src/pages/index.js`. The page auto-
     - https://github.com/shadowwalker/next-pwa/issues/151
     - https://github.com/vercel/next.js/issues/21679
   - current: lock the `next` version to `10.0.5`
+test push1

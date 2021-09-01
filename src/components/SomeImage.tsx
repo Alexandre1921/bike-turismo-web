@@ -2,7 +2,7 @@ import { Box, Link, Text } from "@chakra-ui/layout";
 import Image from "next/image";
 import React from "react";
 
-const SomeImage = () => {
+const SomeImage: React.FC = () => {
   return (
     <>
       <Box marginY={8} maxWidth={400} marginX="auto">
